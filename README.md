@@ -1,2 +1,2 @@
 # ScalaSampleNote
-工作中积累下来的一下scala代码
+工作中积累下来的一些scala代码
