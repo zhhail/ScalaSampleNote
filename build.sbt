@@ -2,7 +2,7 @@ import Keys._
 import sbtassembly.Plugin.AssemblyKeys
 import AssemblyKeys._
 
-name := "xxx-demo"
+name := "scala-sample-note"
 
 version := "1.0"
 
@@ -10,13 +10,11 @@ organization in ThisBuild := "com.zte.bigdata"
 
 scalaVersion in ThisBuild := "2.10.4"
 
-//libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.5" % "test"
-//libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.4" % "test"
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.0" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.5" % "test"
 
 assemblySettings
 
-jarName in assembly := "North-xmlreader.jar" 
+jarName in assembly := "scala-sample-note.jar" 
 
 test in assembly := {}
 
