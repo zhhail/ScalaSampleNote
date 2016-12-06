@@ -22,9 +22,6 @@ trait NorthMR_XML_Reader_ScalaImpl extends  NorthMR_XML_Reader  with Using{
 
   def xml2csv(xmlFileName: String): Seq[String] = {
     val file: Elem = loadfile(xmlFileName)
-    // val datetime = (file \ "fileHeader" \ "@startTime").head
-    // val value: NodeSeq = (file \\ "eNB" \ "measurement" \ "smr").filter(_.text.contains("MR.LteScRSRP"))
-    // val value: NodeSeq = (file \ "eNB" \ "measurement").filter(x=>(x\"smr").text.contains("MR.LteScRSRP"))
 
     val eNBs = file \ "eNB"
     eNBs.flatMap {

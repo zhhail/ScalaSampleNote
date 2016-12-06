@@ -1,6 +1,5 @@
 package test
 
-import scala.util.continuations._
 import org.scalatest.FlatSpec
 
 /**
@@ -8,19 +7,5 @@ import org.scalatest.FlatSpec
  */
 class Test_test extends FlatSpec {
 
-  var count: (Unit => Unit) = null
 
-
-  ignore should "reset shift" in {
-    reset {
-      shift {
-        k: (Unit => Unit) =>
-          println("kkkkkk")
-          count = k
-      }
-      print("rrrrrrrrrrrrrrrrr")
-    }
-    print("xxxxxxxxx")
-    print(count())
-  }
 }
