@@ -1,9 +1,9 @@
 package com.zte.bigdata.s99
 
 trait Tree[+T] {
-  def size(): Int
+  def size: Int
 
-  def height(): Int
+  def height: Int
 
   def isSymmetric: Boolean = true
 
@@ -15,9 +15,19 @@ trait Tree[+T] {
 
   def isHeightBalance: Boolean
 
+  def leafList: List[T]
+
+  def internalList: List[T]
+
   def atLevel(level: Int): List[T]
 
+  def preorder: List[T]
 
+  def inorder: List[T]
+
+  def postorder: List[T]
+
+  def toDotstring: String
 }
 
 
@@ -77,7 +87,6 @@ object Tree {
     }
   }
 
-
   private def hbalTreesWithNodes1[T](numOfNodes: Int, value: T): List[Node[T]] =
     makeTree_byNodes(numOfNodes, value).filter(_.isHeightBalance).toList
 
@@ -104,9 +113,62 @@ object Tree {
       ls.takeWhile(_ <= nodesNum).length - 1
   }
 
-  def fromString(s: String): Node[Char] = Node('x')
+  private def getElement(str: String): (Char, String, String) = {
+    def find(s: String): Int = {
+      var index = -1
+      var leftBrace = 0
+      for (i <- 0 until s.length) {
+        val c = s(i)
+        if (c == '(') leftBrace += 1
+        else if (c == ')') leftBrace -= 1
+        else if ((c == ',') && (leftBrace == 0)) index = i
+      }
+      index
+    }
+    def getElement2(s: String): (String, String) = {
+      val (l, r) = s.splitAt(find(s))
+      (l, r.drop(1))
+    }
 
-//  def fromDotstring(s: String): Node[Char] = Node('x')
+    //    如下字符串模式匹配在scala 2.11中被标记为 @deprecated ，不知道该用什么替代0
+    //    val reg_vlr = """^([^()]+)\((.*)\)""".r
+    //      case reg_vlr(v, lr) =>
+    str match {
+      case ch if ch.length == 1 => (ch.head, "", "")
+      case _ => val (l, r) =
+        getElement2(str.tail.tail.init)
+        (str.head, l, r)
+    }
+  }
+
+  // "a(b(d,e),c(,f(g,)))"
+  private def fromString2Tree(s: String): Tree[Char] = s match {
+    case "" => End
+    case _ =>
+      val (v, l, r) = getElement(s)
+      Node(v, fromString2Tree(l), fromString2Tree(r))
+  }
+
+  def fromString(s: String): Node[Char] = fromString2Tree(s).asInstanceOf[Node[Char]]
+
+  def string2Tree(s: String): Node[Char] = fromString(s)
+
+  //  TO DO
+  def preInTree[T](pre: List[T], in: List[T]): Node[T] = ???
+
+  def fromDotstring(dotstr: String): Node[Char] = {
+    def dotStr2Tree(ds: String): (Tree[Char], Int) = ds match {
+      case s if s.head == '.' => (End, 1)
+      case s =>
+        val l = dotStr2Tree(s.tail)
+        val r = dotStr2Tree(s.drop(l._2 + 1))
+        (Node(s.head, l._1, r._1), l._2 + r._2 + 1)
+    }
+    dotStr2Tree(dotstr).asInstanceOf[(Node[Char], Int)]._1
+    //    dotStr2Tree(dotstr) match {
+    //      case (n:Node[Char],_) => n
+    //    }
+  }
 
   // 给定一个二叉树，构造出增加一个节点后所有可能的二叉树
   private def add1Node[T](v: T, node: Node[T]): List[Node[T]] = {
@@ -121,14 +183,14 @@ object Tree {
   // 构造出给定 height 的所有二叉树。  有严重效率问题
   private def makeTree_byHeight[T](height: Int, v: T): Set[Node[T]] = {
     (1 to Math.pow(2, height).toInt - 1).foldLeft(Set[Node[T]]()) {
-      (r, e) => r ++ makeTree_byNodes(e, v).filter(_.height() == height)
+      (r, e) => r ++ makeTree_byNodes(e, v).filter(_.height == height)
     }
   }
 
   // 构造出给定节点数的所有二叉树，效率？ 阶乘级别复杂度。。。。。
   private def makeTree_byNodes[T](num: Int, v: T): Set[Node[T]] = {
     (1 to num - 1).foldLeft(Set(Node(v))) {
-      (rerult, _) => rerult.flatMap(add1Node(v, _))
+      (result, _) => result.flatMap(add1Node(v, _))
     }
   }
 

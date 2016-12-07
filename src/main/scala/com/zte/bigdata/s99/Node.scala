@@ -10,13 +10,14 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
     case Node(v, l, r) => s"$v($l,$r)"
   }
 
+  override def toDotstring = s"$value${left.toDotstring}${right.toDotstring}"
+
   override def equals(that: Any): Boolean = that match {
-//    case t: Node[T] => value == t.value && left == t.left && right == t.right
-    case Node(v,l,r) => value == v && left == l && right == r
+    case Node(v, l, r) => value == v && left == l && right == r
     case _ => false
   }
 
-  override def hashCode: Int = size() * 10000 + left.size() * 100 + right.size()
+  override def hashCode: Int = size * 10000 + left.size * 100 + right.size
 
   override def addValue[U >: T <% Ordered[U]](x: U): Node[U] = x match {
     case v if v > value => Node(value, left, right.addValue(v))
@@ -26,12 +27,12 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
   def layoutBinaryTree: PositionedNode[T] = {
     def layout[U](node: Node[U], x: Int, y: Int): PositionedNode[U] = node match {
       case Node(v, End, End) => PositionedNode(PositionedValue(v, x, y), End, End)
-      case Node(v, l: Node[U], End) => PositionedNode(PositionedValue(v, l.size() + x, y), layout(l, x, y + 1), End)
+      case Node(v, l: Node[U], End) => PositionedNode(PositionedValue(v, l.size + x, y), layout(l, x, y + 1), End)
       case Node(v, End, r: Node[U]) => PositionedNode(PositionedValue(v, x, y), End, layout(r, x + 1, y + 1))
       case Node(v, l: Node[U], r: Node[U]) => PositionedNode(
-        PositionedValue(v, l.size() + x, y),
+        PositionedValue(v, l.size + x, y),
         layout(l, x, y + 1),
-        layout(r, l.size() + x + 1, y + 1))
+        layout(r, l.size + x + 1, y + 1))
     }
     layout(this, 1, 1)
   }
@@ -52,17 +53,21 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
     layout(this, 0, 1, height - 1)
   }
 
+  def layoutBinaryTree3: PositionedNode[T] = ???
+
+  @deprecated
   private def all_left(): String = {
     def left[U](node: Tree[U]): String = node match {
-      case e if e == End => "#"
+      case e if e == End => "."
       case Node(_, l: Tree[_], r: Tree[_]) => s"N(${left(l)}x${left(r)})"
     }
     left(this)
   }
 
+  @deprecated
   private def all_right(): String = {
     def right[U](node: Tree[U]): String = node match {
-      case e if e == End => "#"
+      case e if e == End => "."
       case Node(_, l: Tree[_], r: Tree[_]) => s"N(${right(r)}x${right(l)})"
     }
     right(this)
@@ -70,51 +75,30 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
 
   override def isSymmetric = all_right == all_left
 
-  def isCompleteBalance: Boolean = {
-    def completeBalance(node: Node[T]): Boolean = node match {
-      case Node(_, End, End) => true
-      case Node(_, left1: Tree[T], right1: Tree[T]) => Math.abs(left1.size() - right1.size) <= 1 && left1.isCompleteBalance && right1.isCompleteBalance
-    }
-    completeBalance(this)
-  }
+  override def isCompleteBalance: Boolean =
+    Math.abs(left.size - right.size) <= 1 && left.isCompleteBalance && right.isCompleteBalance
 
-  override def size(): Int = left.size() + 1 + right.size()
+  override def size: Int = left.size + 1 + right.size
 
-  override def height(): Int = Math.max(left.height(), right.height()) + 1
+  override def height: Int = Math.max(left.height, right.height) + 1
 
-  def isHeightBalance: Boolean = {
-    def heightBalance(node: Node[T]): Boolean = node match {
-      case Node(_, End, End) => true
-      case Node(_, left1: Tree[T], right1: Tree[T]) => Math.abs(left1.height - right1.height) <= 1 && left1.isHeightBalance && right1.isHeightBalance
-    }
-    heightBalance(this)
-  }
+  //  定义：对每一个节点，left和right的height相差不超过1
+  override def isHeightBalance: Boolean =
+    Math.abs(left.height - right.height) <= 1 && left.isHeightBalance && right.isHeightBalance
 
-  override def isFull: Boolean = this match {
-    case n if n == End => true
-    case Node(_, l, r) => l.isFull && r.isFull && l.size == r.size
-  }
+  //  是否满二叉树
+  override def isFull: Boolean = left.isFull && right.isFull && left.size == right.size
 
   def leafCount(): Int = leafList.length
 
-  def leafList: List[T] = {
-    def getleafs(node: Node[T]): List[T] = node match {
-      case Node(_, End, End) => List(node.value)
-      case Node(_, left1: Node[T], End) => getleafs(left1)
-      case Node(_, End, right1: Node[T]) => getleafs(right1)
-      case Node(_, left1: Node[T], right1: Node[T]) => getleafs(left1) ::: getleafs(right1)
-    }
-    getleafs(this)
+  override def leafList: List[T] = this match {
+    case Node(v, End, End) => List(v)
+    case Node(v, l, r) => l.leafList ::: r.leafList
   }
 
-  def internalList: List[T] = {
-    def getInternal(node: Node[T]): List[T] = node match {
-      case Node(_, End, End) => List()
-      case Node(v, left1: Node[T], End) => v :: getInternal(left1)
-      case Node(v, End, right1: Node[T]) => v :: getInternal(right1)
-      case Node(v, left1: Node[T], right1: Node[T]) => v :: getInternal(left1) ::: getInternal(right1)
-    }
-    getInternal(this)
+  override def internalList: List[T] = this match {
+    case Node(v, End, End) => Nil
+    case Node(v, l, r) => l.internalList ::: (v :: r.internalList)
   }
 
   override def atLevel(level: Int): List[T] = level match {
@@ -122,40 +106,34 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
     case n if n > 1 => left.atLevel(n - 1) ::: right.atLevel(n - 1)
   }
 
-  def all_inorder:String = Node.all_inorder(this)
-  def all_preorder:String = Node.all_preorder(this)
-  def all_postorder:String = Node.all_postorder(this)
+  override def inorder: List[T] = allNode {
+    node: Node[T] => node.left.inorder ::: (node.value :: node.right.inorder)
+  }
 
-  @deprecated
-  // use all(order: Order = MIDDLE) instead.
-  def allNode(): String = {
-    def middleOrder(node: Tree[T]): String = node match {
-      case n if n == End => ""
-      case Node(v, left1: Tree[T], right1: Tree[T]) =>
-        middleOrder(left1) + s"($v)" + middleOrder(right1)
-    }
-    def forwardOrder(node: Tree[T]): String = node match {
-      case n if n == End => ""
-      case Node(v, left1: Tree[T], right1: Tree[T]) =>
-        s"($v)" + forwardOrder(left1) + forwardOrder(right1)
-    }
-    def reverseOrder(node: Tree[T]): String = node match {
-      case n if n == End => ""
-      case Node(v, left1: Tree[T], right1: Tree[T]) =>
-        reverseOrder(left1) + reverseOrder(right1) + s"($v)"
-    }
-    middleOrder(this)
+  override def preorder: List[T] = allNode {
+    node: Node[T] => (node.value :: node.left.preorder) ::: node.right.preorder
+  }
+
+  override def postorder: List[T] = allNode {
+    node: Node[T] => node.left.postorder ::: node.right.postorder ::: List(node.value)
+  }
+
+  private def allNode[U](f: Node[U] => List[U]): List[U] = this match {
+    case n if n == End => Nil
+    case n: Node[U] => f(n)
   }
 }
 
 case object End extends Tree[Nothing] {
   override def toString = "."
 
+  override def toDotstring = "."
+
   override def addValue[U <% Ordered[U]](x: U): Tree[U] = Node(x)
 
-  override def size() = 0
+  override def size = 0
 
-  override def height(): Int = 0
+  override def height: Int = 0
 
   override def isFull: Boolean = true
 
@@ -163,7 +141,18 @@ case object End extends Tree[Nothing] {
 
   override def isHeightBalance: Boolean = true
 
+  override def leafList: List[Nothing] = Nil
+
+  override def internalList: List[Nothing] = Nil
+
   override def atLevel(level: Int): List[Nothing] = Nil
+
+  override def preorder: List[Nothing] = Nil
+
+  override def inorder: List[Nothing] = Nil
+
+  override def postorder: List[Nothing] = Nil
+
 }
 
 object Node {
@@ -172,23 +161,6 @@ object Node {
   def apply[T](value: T, left: Tree[T], right: Tree[T]): Node[T] = new Node(value, left, right)
 
   def apply[T](value: T): Node[T] = new Node(value)
-
-  private def forall[T](node: Tree[T])(f: Node[T] => String): String = node match {
-    case n if n == End => ""
-    case n: Node[T] => f(n)
-  }
-
-  private def all_inorder[T](node: Tree[T]): String = Node.forall(node) {
-    node => all_inorder(node.left) + s"(${node.value})" + all_inorder(node.right)
-  }
-
-  private def all_preorder[T](node: Tree[T]): String = Node.forall(node) {
-    node => s"(${node.value})" + all_preorder(node.left) + all_preorder(node.right)
-  }
-
-  private def all_postorder[T](node: Tree[T]): String = Node.forall(node) {
-    node => all_postorder(node.left) + all_postorder(node.right) + s"(${node.value})"
-  }
 
 }
 
