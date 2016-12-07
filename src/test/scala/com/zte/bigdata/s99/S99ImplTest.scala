@@ -145,7 +145,7 @@ class S99ImplTest extends FlatSpec with ShouldMatchers {
   it should "P68 (**) Preorder and inorder sequences of binary trees." in {
     Tree.string2Tree("a(b(d,e),c(,f(g,)))").preorder shouldBe List('a', 'b', 'd', 'e', 'c', 'f', 'g')
     Tree.string2Tree("a(b(d,e),c(,f(g,)))").inorder shouldBe List('d', 'b', 'e', 'a', 'c', 'g', 'f')
-    pending
+//    pending
     Tree.preInTree(List('a', 'b', 'd', 'e', 'c', 'f', 'g'), List('d', 'b', 'e', 'a', 'c', 'g', 'f')) shouldBe Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End)))
   }
   it should "P69 (**) Dotstring representation of binary trees." in {

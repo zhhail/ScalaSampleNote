@@ -153,8 +153,16 @@ object Tree {
 
   def string2Tree(s: String): Node[Char] = fromString(s)
 
-  //  TO DO
-  def preInTree[T](pre: List[T], in: List[T]): Node[T] = ???
+  //  根据前序和中序遍历结果，反推二叉树
+  def preInTree[T](pre: List[T], in: List[T]): Tree[T] = pre match {
+    case Nil => End
+    case _ =>
+      val root = pre.head
+      val (left_in, right_in) = in.span (_ != root)
+      val left = pre.filter(left_in.contains(_))
+      val right = pre.filter(right_in.tail.contains(_))
+      Node(root, preInTree(left, left_in), preInTree(right, right_in.tail))
+  }
 
   def fromDotstring(dotstr: String): Node[Char] = {
     def dotStr2Tree(ds: String): (Tree[Char], Int) = ds match {
