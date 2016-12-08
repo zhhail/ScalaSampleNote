@@ -66,7 +66,9 @@ object HuffmanNode {
   def apply(value: Tuple2[String, Int]): HuffmanNode = HuffmanNode(value, End, End)
 }
 
-case class PositionedValue[+T](value:T,x:Int,y:Int)
-case class PositionedNode[+T](value1:PositionedValue[T], left1:Tree[PositionedValue[T]],right1:Tree[PositionedValue[T]]) extends Node[PositionedValue[T]](value1,left1,right1) {
+case class PositionedValue[+T](value: T, x: Int, y: Int)
+
+case class PositionedNode[+T](value1: PositionedValue[T], left1: Tree[PositionedValue[T]], right1: Tree[PositionedValue[T]]) extends Node[PositionedValue[T]](value1, left1, right1) {
   override def toString = "T[" + value.x.toString + "," + value.y.toString + "](" + value.value.toString + " " + left.toString + " " + right.toString + ")"
+
 }

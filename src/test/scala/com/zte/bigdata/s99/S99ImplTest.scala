@@ -135,8 +135,11 @@ class S99ImplTest extends FlatSpec with ShouldMatchers {
     //    println(Tree.fromList(List('n', 'k', 'm', 'c', 'a', 'e', 'd', 'g', 'u', 'p', 'q')).layoutBinaryTree2)
   }
   it should "P66 (***) Layout a binary tree (3)." in {
-    pending
-    Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree3.toString shouldBe "T[2,1]('a T[1,2]('b . T[2,3]('c . .)) T[3,2]('d . .))"
+    println(Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree3)
+    println(Tree.fromList(List('n','k','m','c','a','e','d','g','u','p','q')).layoutBinaryTree3)
+    //    pending
+    Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree3.toString shouldBe "T[2,1](a T[1,2](b . T[2,3](c . .)) T[3,2](d . .))"
+    Tree.fromList(List('n','k','m','c','a','e','d','g','u','p','q')).layoutBinaryTree3 shouldBe "T[5,1](n T[4,2](k T[2,3](c T[1,4](a . .) T[3,4](e T[2,5](d . .) T[4,5](g . .))) T[4,3](m . .)) T[7,2](u T[6,3](p . T[7,4](q . .)) .))"
   }
   it should "P67 (**) A string representation of binary trees." in {
     Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End))).toString shouldBe "a(b(d,e),c(,f(g,)))"

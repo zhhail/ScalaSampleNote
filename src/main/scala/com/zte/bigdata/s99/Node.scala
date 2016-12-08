@@ -3,6 +3,10 @@ package com.zte.bigdata.s99
 class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree[T] {
   def this(value: T) = this(value, End, End)
 
+  override def leftWidth: Int = Math.max(left.leftWidth + 1, right.leftWidth - 1)
+
+  override def rightWidth: Int = Math.max(left.rightWidth - 1, right.rightWidth + 1)
+
   override def toString = this match {
     case Node(v, End, End) => v.toString
     case Node(v, l, End) => s"$v($l,)"
@@ -53,7 +57,31 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
     layout(this, 0, 1, height - 1)
   }
 
-  def layoutBinaryTree3: PositionedNode[T] = ???
+  def layoutBinaryTree3: PositionedNode[T] = {
+    def dis(lr: Int, rl: Int): Int = (lr + rl) / 2 -1
+    def layout(node: Node[T], x: Int, y: Int): PositionedNode[T] = node match {
+      case Node(v, End, End) => PositionedNode(PositionedValue(v, x, y), End, End)
+      case Node(v, l: Node[T], End) =>
+        val ln = layout(l, x, y + 1)
+        val x_root = ln.leftWidth
+        val root = PositionedValue(v, x + x_root, y)
+        PositionedNode(root, ln, End)
+      case Node(v, End, r: Node[T]) =>
+        val root = PositionedValue(v, x, y)
+        val x_right = Math.min(r.leftWidth, 1)
+        val rn = layout(r, x + x_right, y + 1)
+        PositionedNode(root, End, rn)
+      case Node(v, l: Node[T], r: Node[T]) =>
+        val hdis = dis(l.rightWidth, r.leftWidth)
+        val ln = layout(l, x, y + 1)
+        val x_root = ln.leftWidth + hdis
+        val root = PositionedValue(v, x + x_root, y)
+        val x_right = x_root + Math.min(r.leftWidth, 1)
+        val rn = layout(r, x + x_right, y + 1)
+        PositionedNode(root, ln, rn)
+    }
+    layout(this, 1, 1)
+  }
 
   @deprecated
   private def all_left(): String = {
@@ -137,6 +165,10 @@ case object End extends Tree[Nothing] {
 
   override def height: Int = 0
 
+  override def rightWidth: Int = 0
+
+  override def leftWidth: Int = 0
+
   override def isFull: Boolean = true
 
   override def isCompleteBalance: Boolean = true
@@ -154,7 +186,6 @@ case object End extends Tree[Nothing] {
   override def inorder: List[Nothing] = Nil
 
   override def postorder: List[Nothing] = Nil
-
 }
 
 object Node {

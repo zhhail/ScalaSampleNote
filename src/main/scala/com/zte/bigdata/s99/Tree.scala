@@ -5,6 +5,12 @@ trait Tree[+T] {
 
   def height: Int
 
+  def leftWidth: Int
+
+  def rightWidth: Int
+
+  def width: Int = leftWidth + rightWidth - 1
+
   def isSymmetric: Boolean = true
 
   def addValue[U >: T <% Ordered[U]](x: U): Tree[U]
@@ -158,7 +164,7 @@ object Tree {
     case Nil => End
     case _ =>
       val root = pre.head
-      val (left_in, right_in) = in.span (_ != root)
+      val (left_in, right_in) = in.span(_ != root)
       val left = pre.filter(left_in.contains(_))
       val right = pre.filter(right_in.tail.contains(_))
       Node(root, preInTree(left, left_in), preInTree(right, right_in.tail))
