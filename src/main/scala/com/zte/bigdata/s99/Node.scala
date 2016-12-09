@@ -42,23 +42,42 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
   }
 
   def layoutBinaryTree2: PositionedNode[T] = {
-    def layout(node: Node[T], x: Int, y: Int, hLeft: Int): PositionedNode[T] = node match {
-      case Node(v, End, End) => PositionedNode(PositionedValue(v, x + Math.pow(2, hLeft).toInt, y), End, End)
-      case Node(v, l: Node[T], End) => PositionedNode(PositionedValue(v, x + Math.pow(2, hLeft).toInt, y),
-        layout(l, x, y + 1, hLeft - 1),
-        End)
-      case Node(v, End, r: Node[T]) => PositionedNode(PositionedValue(v, x + Math.pow(2, hLeft).toInt, y),
-        End,
-        layout(r, x + Math.pow(2, hLeft).toInt, y + 1, hLeft - 1))
-      case Node(v, l: Node[T], r: Node[T]) => PositionedNode(PositionedValue(v, x + Math.pow(2, hLeft).toInt, y),
-        layout(l, x, y + 1, hLeft - 1),
-        layout(r, x + Math.pow(2, hLeft).toInt, y + 1, hLeft - 1))
+    def leftw(node: Tree[T]): Int = node match {
+      case End => 0
+      case Node(_, l, r) => 1 + leftw(l)
     }
-    layout(this, 0, 1, height - 1)
+    def layout(node: Node[T], x: Int, y: Int, h_remain: Int): PositionedNode[T] = node match {
+      case Node(v, End, End) => PositionedNode(PositionedValue(v, x + Math.pow(2, h_remain).toInt, y), End, End)
+      case Node(v, l: Node[T], End) => PositionedNode(PositionedValue(v, x + Math.pow(2, h_remain).toInt, y),
+        layout(l, x, y + 1, h_remain - 1),
+        End)
+      case Node(v, End, r: Node[T]) => PositionedNode(PositionedValue(v, x + Math.pow(2, h_remain).toInt, y),
+        End,
+        layout(r, x + Math.pow(2, h_remain).toInt, y + 1, h_remain - 1))
+      case Node(v, l: Node[T], r: Node[T]) => PositionedNode(PositionedValue(v, x + Math.pow(2, h_remain).toInt, y),
+        layout(l, x, y + 1, h_remain - 1),
+        layout(r, x + Math.pow(2, h_remain).toInt, y + 1, h_remain - 1))
+    }
+    val height_absence = this.height - leftw(this)
+    val x_absence = if (height_absence == 0) 0 else Math.pow(2, height_absence - 1).toInt
+    layout(this, -x_absence, 1, height - 1)
   }
 
   def layoutBinaryTree3: PositionedNode[T] = {
-    def dis(lr: Int, rl: Int): Int = (lr + rl) / 2 -1
+    def dis_adj(l: Tree[T], r: Tree[T]): Int = (dis_left2right(l, r)-1)/2
+    def dis_left2right(l: Tree[T], r: Tree[T]): Int = (l, r) match {
+      case (End, End) => 0
+      case (End, _) => 0
+      case (_, End) => 0
+      case (l1: Node[T], r1: Node[T]) =>
+        val dis_lr_rl = dis_left2right(l1.right, r1.left)
+        val d_lr_rl = if (dis_lr_rl == 0) 1 else dis_lr_rl+2
+        val dis_lr_rr = dis_left2right(l1.right, r1.right)
+        val dis_ll_rl = Math.max(dis_left2right(l1.left, r1.left),1)
+        val dis_ll_rr = Math.max(dis_left2right(l1.left, r1.right),1)
+        val d_ll_rr = if (dis_ll_rr < 2) 1 else dis_lr_rl - 2
+        Math.max(Math.max(d_lr_rl, dis_lr_rr), Math.max(dis_ll_rl, d_ll_rr))
+    }
     def layout(node: Node[T], x: Int, y: Int): PositionedNode[T] = node match {
       case Node(v, End, End) => PositionedNode(PositionedValue(v, x, y), End, End)
       case Node(v, l: Node[T], End) =>
@@ -68,19 +87,19 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
         PositionedNode(root, ln, End)
       case Node(v, End, r: Node[T]) =>
         val root = PositionedValue(v, x, y)
-        val x_right = Math.min(r.leftWidth, 1)
+        val x_right = 2 - r.leftWidth
         val rn = layout(r, x + x_right, y + 1)
         PositionedNode(root, End, rn)
       case Node(v, l: Node[T], r: Node[T]) =>
-        val hdis = dis(l.rightWidth, r.leftWidth)
+        val hdis = dis_adj(l, r)
         val ln = layout(l, x, y + 1)
         val x_root = ln.leftWidth + hdis
         val root = PositionedValue(v, x + x_root, y)
-        val x_right = x_root + Math.min(r.leftWidth, 1)
+        val x_right = x_root + 2 - r.leftWidth + hdis
         val rn = layout(r, x + x_right, y + 1)
         PositionedNode(root, ln, rn)
     }
-    layout(this, 1, 1)
+    layout(this, leftWidth - left.leftWidth, 1)
   }
 
   @deprecated

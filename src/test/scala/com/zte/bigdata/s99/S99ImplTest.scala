@@ -1,7 +1,7 @@
 package com.zte.bigdata.s99
 
 import org.scalatest.{ShouldMatchers, FlatSpec}
-
+import S99Impl._
 
 class S99ImplTest extends FlatSpec with ShouldMatchers {
   it should "test" in {
@@ -13,24 +13,23 @@ class S99ImplTest extends FlatSpec with ShouldMatchers {
     node.height shouldBe (4)
   }
   it should "P46 (**) Truth tables for logical expressions." in {
-    import S99Impl.LogicalOperation._
+    import LogicalOperation._
     and(true, true) shouldBe true
     xor(true, true) shouldBe false
-    S99Impl.table2((a: Boolean, b: Boolean) => and(a, or(a, S99Impl.LogicalOperation.not(b)))).foreach(println)
+    table2((a: Boolean, b: Boolean) => and(a, or(a, S99Impl.LogicalOperation.not(b)))).foreach(println)
   }
   it should "P47 (*) Truth tables for logical expressions (2)." in {
-    import S99Impl._
-    S99Impl.table2((a: Boolean, b: Boolean) => a and (a or S99Impl.LogicalOperation.not(b))).foreach(println)
+    table2((a: Boolean, b: Boolean) => a and (a or S99Impl.LogicalOperation.not(b))).foreach(println)
   }
   it should "P49 (**) Gray code." in {
     val result = S99Impl.gray(3)
     result should be(List("000", "001", "011", "010", "110", "111", "101", "100"))
-    S99Impl.gray1(3) should be(List("000", "001", "011", "010", "110", "111", "101", "100"))
+    gray1(3) should be(List("000", "001", "011", "010", "110", "111", "101", "100"))
   }
   it should "P50 (***) Huffman code." in {
-    S99Impl.huffman(List(("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5))) shouldBe
+    huffman(List(("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5))) shouldBe
       List(("a", "0"), ("b", "101"), ("c", "100"), ("d", "111"), ("e", "1101"), ("f", "1100"))
-    S99Impl.huffman(List(("a", 27), ("b", 8), ("c", 15), ("d", 15), ("e", 30), ("f", 5))) shouldBe
+    huffman(List(("a", 27), ("b", 8), ("c", 15), ("d", 15), ("e", 30), ("f", 5))) shouldBe
       List(("a", "01"), ("b", "1001"), ("c", "101"), ("d", "00"), ("e", "11"), ("f", "1000"))
   }
 
@@ -131,17 +130,14 @@ class S99ImplTest extends FlatSpec with ShouldMatchers {
   it should "P65 (**) Layout a binary tree (2)." in {
     Node('a').layoutBinaryTree2 shouldBe PositionedNode(PositionedValue('a', 1, 1), End, End)
     Node('a', Node('b', Node('c'), End), Node('d')).layoutBinaryTree2 shouldBe PositionedNode(PositionedValue('a', 4, 1), PositionedNode(PositionedValue('b', 2, 2), PositionedNode(PositionedValue('c', 1, 3), End, End), End), PositionedNode(PositionedValue('d', 6, 2), End, End))
-    Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree2 shouldBe PositionedNode(PositionedValue('a', 4, 1), PositionedNode(PositionedValue('b', 2, 2), End, PositionedNode(PositionedValue('c', 3, 3), End, End)), PositionedNode(PositionedValue('d', 6, 2), End, End))
-    //    println(Tree.fromList(List('n', 'k', 'm', 'c', 'a', 'e', 'd', 'g', 'u', 'p', 'q')).layoutBinaryTree2)
+    Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree2 shouldBe PositionedNode(PositionedValue('a', 3, 1), PositionedNode(PositionedValue('b', 1, 2), End, PositionedNode(PositionedValue('c', 2, 3), End, End)), PositionedNode(PositionedValue('d', 5, 2), End, End))
+    Tree.fromList(List('n', 'k', 'm', 'c', 'a', 'e', 'd', 'g', 'u', 'p', 'q')).layoutBinaryTree2.toString shouldBe "T[15,1](n T[7,2](k T[3,3](c T[1,4](a . .) T[5,4](e T[4,5](d . .) T[6,5](g . .))) T[11,3](m . .)) T[23,2](u T[19,3](p . T[21,4](q . .)) .))"
   }
   it should "P66 (***) Layout a binary tree (3)." in {
-    println(Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree3)
-    println(Tree.fromList(List('n','k','m','c','a','e','d','g','u','p','q')).layoutBinaryTree3)
-//    T[5,1](n T[4,2](k T[2,3](c T[1,4](a . .) T[4,4](e T[3,5](d . .) T[5,5](g . .))) T[5,3](m . .)) T[7,2](u T[6,3](p . T[7,4](q . .)) .))
-//    T[5,1](n T[3,2](k T[2,3](c T[1,4](a . .) T[3,4](e T[2,5](d . .) T[4,5](g . .))) T[4,3](m . .)) T[7,2](u T[6,3](p . T[7,4](q . .)) .))
-    //    pending
     Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree3.toString shouldBe "T[2,1](a T[1,2](b . T[2,3](c . .)) T[3,2](d . .))"
-    Tree.fromList(List('n','k','m','c','a','e','d','g','u','p','q')).layoutBinaryTree3 shouldBe "T[5,1](n T[3,2](k T[2,3](c T[1,4](a . .) T[3,4](e T[2,5](d . .) T[4,5](g . .))) T[4,3](m . .)) T[7,2](u T[6,3](p . T[7,4](q . .)) .))"
+    Tree.fromList(List('n', 'k', 'm', 'c', 'a', 'e', 'd', 'u', 'p', 'q')).layoutBinaryTree3.toString shouldBe "T[5,1](n T[3,2](k T[2,3](c T[1,4](a . .) T[3,4](e T[2,5](d . .) .)) T[4,3](m . .)) T[7,2](u T[6,3](p . T[7,4](q . .)) .))"
+    Tree.fromList(List('n', 'k', 'm', 'c', 'a', 'e', 'd', 'g', 'u', 'p', 'q')).layoutBinaryTree3.toString shouldBe "T[5,1](n T[3,2](k T[2,3](c T[1,4](a . .) T[3,4](e T[2,5](d . .) T[4,5](g . .))) T[4,3](m . .)) T[7,2](u T[6,3](p . T[7,4](q . .)) .))"
+    Node('a',Node('b',Node('c'),End),Node('d',Node('e',Node('f',Node('g',Node('h'),End),End),End),End)).layoutBinaryTree3.toString shouldBe "T[4,1](a T[3,2](b T[2,3](c . .) .) T[5,2](d T[4,3](e T[3,4](f T[2,5](g T[1,6](h . .) .) .) .) .))"
   }
   it should "P67 (**) A string representation of binary trees." in {
     Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End))).toString shouldBe "a(b(d,e),c(,f(g,)))"
@@ -150,14 +146,16 @@ class S99ImplTest extends FlatSpec with ShouldMatchers {
   it should "P68 (**) Preorder and inorder sequences of binary trees." in {
     Tree.string2Tree("a(b(d,e),c(,f(g,)))").preorder shouldBe List('a', 'b', 'd', 'e', 'c', 'f', 'g')
     Tree.string2Tree("a(b(d,e),c(,f(g,)))").inorder shouldBe List('d', 'b', 'e', 'a', 'c', 'g', 'f')
-//    pending
     Tree.preInTree(List('a', 'b', 'd', 'e', 'c', 'f', 'g'), List('d', 'b', 'e', 'a', 'c', 'g', 'f')) shouldBe Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End)))
   }
   it should "P69 (**) Dotstring representation of binary trees." in {
     Tree.string2Tree("a(b(d,e),c(,f(g,)))").toDotstring shouldBe "abd..e..c.fg..."
     Tree.fromDotstring("abd..e..c.fg...") shouldBe Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End)))
   }
-
+  it should "P95 (**) English number words." in {
+    fullWords(1764) shouldBe "one-seven-six-four"
+    fullWords(109510) shouldBe "one-zero-nine-five-one-zero"
+  }
 }
 
 
