@@ -37,5 +37,5 @@ jarName in assembly := "scala-sample-note.jar"
 
 test in assembly := {}
 
-assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false)
+assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = true)
 

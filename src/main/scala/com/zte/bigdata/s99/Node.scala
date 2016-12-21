@@ -102,7 +102,6 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
     layout(this, leftWidth - left.leftWidth, 1)
   }
 
-  @deprecated
   private def all_left(): String = {
     def left[U](node: Tree[U]): String = node match {
       case e if e == End => "."
@@ -111,7 +110,6 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
     left(this)
   }
 
-  @deprecated
   private def all_right(): String = {
     def right[U](node: Tree[U]): String = node match {
       case e if e == End => "."
