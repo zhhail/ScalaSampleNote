@@ -2,9 +2,26 @@ package com.zte.bigdata.s99
 
 import org.scalatest.{ShouldMatchers, FunSpec}
 import S99Impl._
+import scala.collection.LinearSeq
 
 class S99ImplTest extends FunSpec with ShouldMatchers {
   describe("S99 temp") {
+    def traverse[A, U](t: Tree[A])(f: A => U): LinearSeq[U] = {
+      def helper(current: Tree[A], next: LinearSeq[Tree[A]]): LinearSeq[U] = current match {
+        case Node(n, l, r) => f(n) +: helper(l, r +: next)
+        case End => next match {
+          case head :: tail => helper(head, tail)
+          case Nil => Nil
+        }
+      }
+      helper(t, LinearSeq())
+    }
+    it("should test tree traverse") {
+      val node = Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End)))
+//      println(traverse(node)(x => x))
+      println(node.preorder)
+      println(node.map(c=>c+"1").preorder)
+    }
     it("should test tree") {
       val node = Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End)))
       node.size shouldBe 7
@@ -13,6 +30,7 @@ class S99ImplTest extends FunSpec with ShouldMatchers {
     }
   }
   describe("S99 complete") {
+    //    pending
     it("should P46 (**) Truth tables for logical expressions.") {
       import LogicalOperation._
       true and true shouldBe true

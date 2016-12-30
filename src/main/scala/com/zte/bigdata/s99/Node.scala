@@ -3,6 +3,8 @@ package com.zte.bigdata.s99
 class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree[T] {
   def this(value: T) = this(value, End, End)
 
+  override def map[A](f: T => A): Tree[A] = Node(f(value), left.map(f), right.map(f))
+
   override def leftWidth: Int = Math.max(left.leftWidth + 1, right.leftWidth - 1)
 
   override def rightWidth: Int = Math.max(left.rightWidth - 1, right.rightWidth + 1)
@@ -64,17 +66,17 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
   }
 
   def layoutBinaryTree3: PositionedNode[T] = {
-    def dis_adj(l: Tree[T], r: Tree[T]): Int = (dis_left2right(l, r)-1)/2
+    def dis_adj(l: Tree[T], r: Tree[T]): Int = (dis_left2right(l, r) - 1) / 2
     def dis_left2right(l: Tree[T], r: Tree[T]): Int = (l, r) match {
       case (End, End) => 0
       case (End, _) => 0
       case (_, End) => 0
       case (l1: Node[T], r1: Node[T]) =>
         val dis_lr_rl = dis_left2right(l1.right, r1.left)
-        val d_lr_rl = if (dis_lr_rl == 0) 1 else dis_lr_rl+2
+        val d_lr_rl = if (dis_lr_rl == 0) 1 else dis_lr_rl + 2
         val dis_lr_rr = dis_left2right(l1.right, r1.right)
-        val dis_ll_rl = Math.max(dis_left2right(l1.left, r1.left),1)
-        val dis_ll_rr = Math.max(dis_left2right(l1.left, r1.right),1)
+        val dis_ll_rl = Math.max(dis_left2right(l1.left, r1.left), 1)
+        val dis_ll_rr = Math.max(dis_left2right(l1.left, r1.right), 1)
         val d_ll_rr = if (dis_ll_rr < 2) 1 else dis_lr_rl - 2
         Math.max(Math.max(d_lr_rl, dis_lr_rr), Math.max(dis_ll_rl, d_ll_rr))
     }
@@ -163,10 +165,10 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
     node: Node[T] => node.left.postorder ::: node.right.postorder ::: List(node.value)
   }
 
-  private def allNode[U](f: Node[U] => List[U]): List[U] = this match {
+  private def allNode[U >: T](f: Node[U] => List[U]): List[U] = this match {
     case n if n == End => Nil
     // abstract type U in type pattern is unchecked since it is eliminated by erasure
-    // how to fix it???
+    // how to fix it??? U >: T ??
     case n: Node[U] => f(n)
   }
 }
@@ -203,6 +205,8 @@ case object End extends Tree[Nothing] {
   override def inorder: List[Nothing] = Nil
 
   override def postorder: List[Nothing] = Nil
+
+  override def map[A](f: (Nothing) => A): Tree[A] = End
 }
 
 object Node {

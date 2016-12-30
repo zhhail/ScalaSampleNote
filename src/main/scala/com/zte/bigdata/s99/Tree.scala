@@ -34,6 +34,8 @@ trait Tree[+T] {
   def postorder: List[T]
 
   def toDotstring: String
+
+  def map[A](f:T=>A):Tree[A]
 }
 
 
