@@ -167,8 +167,9 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
 
   private def allNode[U >: T](f: Node[U] => List[U]): List[U] = this match {
     case n if n == End => Nil
+    // allNode[U] 会导致下面编译告警：
     // abstract type U in type pattern is unchecked since it is eliminated by erasure
-    // how to fix it??? U >: T ??
+    // use allNode[U >: T] can fix it
     case n: Node[U] => f(n)
   }
 }
