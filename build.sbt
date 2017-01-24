@@ -1,22 +1,31 @@
 import Keys._
-import sbtassembly.Plugin.AssemblyKeys
-import AssemblyKeys._
 
 name := "scala-sample-note"
 
-version := "1.0"
+version := "1.0.0"
 
-organization in ThisBuild := "com.zte.bigdata"
+organization in ThisBuild := "com.zte.bigdata.zhanghl"
 
 scalaVersion in ThisBuild := "2.11.8"
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.5" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "test"
 
 libraryDependencies ++= Seq(
         "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
         "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4",
         "org.scala-lang.modules" %% "scala-swing" % "1.0.2")
 
+autoCompilerPlugins := true
+
+addCompilerPlugin(
+  "org.scala-lang.plugins" % "scala-continuations-plugin_2.11.8" % "1.0.2")
+
+libraryDependencies +=
+  "org.scala-lang.plugins" %% "scala-continuations-library" % "1.0.2"
+
+scalacOptions += "-P:continuations:enable"
+
+// xml 依赖
 // libraryDependencies := {
 //   CrossVersion.partialVersion(scalaVersion.value) match {
 //     // if Scala 2.12+ is used, use scala-swing 2.x
@@ -36,11 +45,9 @@ libraryDependencies ++= Seq(
 //   }
 // }
 
-assemblySettings
 
-jarName in assembly := "scala-sample-note.jar" 
+assemblyJarName := "scala-sample-note.jar"
 
 test in assembly := {}
 
-assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = true)
 

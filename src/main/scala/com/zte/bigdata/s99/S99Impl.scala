@@ -96,7 +96,7 @@ object S99Impl extends S99_P46_P47 {
     //    P50(***) Huffman code.
     val nodes: List[HuffmanNode] = ls.map(HuffmanNode(_))
     def huffman(nodes: List[HuffmanNode]): List[HuffmanNode] = {
-      nodes.sortBy(_.value._2) match {
+      (nodes.sortBy(_.value._2) : @unchecked) match {
         case head1 :: head2 :: tail =>
           val newList = HuffmanNode(("root", head1.value._2 + head2.value._2), head1, head2) :: tail
           huffman(newList)

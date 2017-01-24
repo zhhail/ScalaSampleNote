@@ -3,8 +3,9 @@ package com.zte.bigdata.s99
 import org.scalatest.{ShouldMatchers, FunSpec}
 import S99Impl._
 import scala.collection.LinearSeq
+import com.zte.bigdata.common.UnitSpec
 
-class S99ImplTest extends FunSpec with ShouldMatchers {
+class S99ImplTest extends UnitSpec {
   describe("S99 temp") {
     def traverse[A, U](t: Tree[A])(f: A => U): LinearSeq[U] = {
       def helper(current: Tree[A], next: LinearSeq[Tree[A]]): LinearSeq[U] = current match {
@@ -16,13 +17,13 @@ class S99ImplTest extends FunSpec with ShouldMatchers {
       }
       helper(t, LinearSeq())
     }
-    it("should test tree traverse") {
+    it("should com.zte.bigdata.common tree traverse") {
       val node = Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End)))
 //      println(traverse(node)(x => x))
       println(node.preorder)
       println(node.map(c=>c+"1").preorder)
     }
-    it("should test tree") {
+    it("should com.zte.bigdata.common tree") {
       val node = Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End)))
       node.size shouldBe 7
       node.isCompleteBalance shouldBe false
@@ -75,7 +76,7 @@ class S99ImplTest extends FunSpec with ShouldMatchers {
       Tree.fromList(List(5, 3, 18, 1, 4, 12, 21)).isSymmetric shouldBe true
       Tree.fromList(List(3, 2, 5, 7, 4)).isSymmetric shouldBe false
     }
-    it("should P58 (**) Generate-and-test paradigm.") {
+    it("should P58 (**) Generate-and-com.zte.bigdata.common paradigm.") {
       Tree.symmetricBalancedTrees(2, 'a) shouldBe List()
       Tree.symmetricBalancedTrees(3, 0) shouldBe List(Node(0, Node(0), Node(0)))
       Tree.symmetricBalancedTrees(4, '#') shouldBe List()
