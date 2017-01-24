@@ -25,7 +25,7 @@ libraryDependencies +=
 
 scalacOptions += "-P:continuations:enable"
 
-// xml 依赖
+// scala2.11 xml 依赖
 // libraryDependencies := {
 //   CrossVersion.partialVersion(scalaVersion.value) match {
 //     // if Scala 2.12+ is used, use scala-swing 2.x
