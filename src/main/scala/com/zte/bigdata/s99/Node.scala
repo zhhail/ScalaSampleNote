@@ -169,7 +169,7 @@ class Node[+T](val value: T, val left: Tree[T], val right: Tree[T]) extends Tree
     case n if n == End => Nil
     // allNode[U] 会导致下面编译告警：
     // abstract type U in type pattern is unchecked since it is eliminated by erasure
-    // use allNode[U >: T] can fix it
+    // 使用 allNode[U >: T] 告警会消失， 为什么？？？???
     case n: Node[U] => f(n)
   }
 }
