@@ -1,18 +1,26 @@
 package com.zte.bigdata.cleanrobot
 
 sealed abstract class Command
+
 case object GoAhead extends Command
+
 case object GoBack extends Command
+
 case object TurnLeft extends Command
+
 case object TurnRight extends Command
+
 case class CmdList(ls: Command*) extends Command
+
 class Robot {
-  def log(msg:String) = {
-//    println(f"$msg%-10s -- new status: $toString")
-//    println(msg)
+  def log(msg: String) = {
+    //    println(f"$msg%-10s -- new status: $toString")
+    //    println(msg)
   }
+
   override def toString = s"Robot location($x,$y), direct: $direction"
-  def turnLeft:this.type = {
+
+  def turnLeft: this.type = {
     direction match {
       case LEFT => direction = DOWN
       case DOWN => direction = RIGHT
@@ -22,7 +30,8 @@ class Robot {
     log("turn left")
     this
   }
-  def turnRight:this.type = {
+
+  def turnRight: this.type = {
     direction match {
       case LEFT => direction = UP
       case DOWN => direction = LEFT
@@ -32,7 +41,8 @@ class Robot {
     log("turn right")
     this
   }
-  def goAhead():this.type = {
+
+  def goAhead(): this.type = {
     direction match {
       case LEFT => x -= 1
       case DOWN => y -= 1
@@ -42,7 +52,8 @@ class Robot {
     log(s"go ahead")
     this
   }
-  def goBack:this.type = {
+
+  def goBack: this.type = {
     direction match {
       case LEFT => x += 1
       case DOWN => y += 1
@@ -53,10 +64,9 @@ class Robot {
     this
   }
 
-  def execute(cmd:Command):this.type = {
+  def execute(cmd: Command): this.type = {
     cmd match {
-      case cmdls:CmdList =>
-        cmdls.ls.foreach(execute)
+      case cmdls: CmdList => cmdls.ls.foreach(execute)
       case GoAhead => goAhead
       case GoBack => goBack
       case TurnLeft => turnLeft
@@ -66,12 +76,17 @@ class Robot {
   }
 
   sealed abstract class DIRECTION
+
   case object UP extends DIRECTION
+
   case object LEFT extends DIRECTION
+
   case object DOWN extends DIRECTION
+
   case object RIGHT extends DIRECTION
-  private var x=0
-  private var y=0
-  private var direction:DIRECTION = UP
+
+  private var x = 0
+  private var y = 0
+  private var direction: DIRECTION = UP
 
 }

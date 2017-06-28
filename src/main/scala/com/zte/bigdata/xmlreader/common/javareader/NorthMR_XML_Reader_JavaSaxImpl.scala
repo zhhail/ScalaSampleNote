@@ -25,31 +25,12 @@ trait NorthMR_XML_Reader_JavaSaxImpl extends NorthMR_XML_Reader with Using {
 
 class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
   this: NorthMR_XML_Info =>
-  var ename = ""
-  var eNBId = ""
-  var head = ""
-  var objContext = Vector[String]()
-  var smr = Vector[String]()
-  var filterColumsIndex = Vector[Option[Int]]()
-
-  def xadd(s: Vector[String], t: Vector[String]): Vector[String] = {
-    s.zip(t).zip(filterColums).map(x => if (x._2.contains("LteNc")) x._1._1 + "$" + x._1._2 else x._1._1)
-  }
-
-  def outputObjectInfo() = {
-    fileWriter.write(s"$eNBId,$head,${objContext.mkString(",")},\n")
-    objContext = Vector()
-  }
-
-  def addcontext(context: String): Unit = {
-    val tmp = context.split(" ", -1)
-    val filterContext = filterColumsIndex.map {
-      case Some(i) => tmp(i)
-      case None => ""
-    }
-    if (objContext.isEmpty) objContext = filterContext
-    else objContext = xadd(objContext, filterContext)
-  }
+  private var ename = ""
+  private var eNBId = ""
+  private var head = ""
+  private var objContext = Vector[String]()
+  private var smr = Vector[String]()
+  private var filterColumsIndex = Vector[Option[Int]]()
 
   override def startElement(uri: String,
                             localName: String,
@@ -90,5 +71,24 @@ class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
     }
   }
 
-  val result = ""
+  private def xadd(s: Vector[String], t: Vector[String]): Vector[String] = {
+    s.zip(t).zip(filterColums).map(x => if (x._2.contains("LteNc")) x._1._1 + "$" + x._1._2 else x._1._1)
+  }
+
+  private def outputObjectInfo() = {
+    fileWriter.write(s"$eNBId,$head,${objContext.mkString(",")},\n")
+    objContext = Vector()
+  }
+
+  private def addcontext(context: String): Unit = {
+    val tmp = context.split(" ", -1)
+    val filterContext = filterColumsIndex.map {
+      case Some(i) => tmp(i)
+      case None => ""
+    }
+    if (objContext.isEmpty) objContext = filterContext
+    else objContext = xadd(objContext, filterContext)
+  }
+
+
 }
