@@ -1,8 +1,6 @@
 package com.zte.bigdata.s99
 
-/**
- * Created by 10010581 on 2016/11/28.
- */
+
 trait S99_P46_P47 {
 //  P46 (**) Truth tables for logical expressions.
   class MyBool(b:Boolean) {

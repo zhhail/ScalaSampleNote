@@ -1,6 +1,7 @@
 package com.zte.bigdata.reset_shift
 
 import com.zte.bigdata.common.UnitSpec
+import com.zte.bigdata.common.database.gbase.GbaseDatabase
 
 
 class Demo_reset_shiftTest extends UnitSpec {
@@ -14,6 +15,10 @@ class Demo_reset_shiftTest extends UnitSpec {
     }
     it("test reset 1 - reset中自带循环") {
       demo.test1
+    }
+    it("test gbase"){
+      val rs = GbaseDatabase.gbase.query("select * from config_ndsInfo")
+      println(rs)
     }
   }
 }

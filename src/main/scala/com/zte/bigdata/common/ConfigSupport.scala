@@ -1,7 +1,6 @@
-package com.zte.bigdata.common.config_support
+package com.zte.bigdata.common
 
 import com.typesafe.config.{ConfigFactory, Config}
-import com.zte.bigdata.common.LogSupport
 import java.io.File
 
 trait ConfigSupport extends LogSupport {
