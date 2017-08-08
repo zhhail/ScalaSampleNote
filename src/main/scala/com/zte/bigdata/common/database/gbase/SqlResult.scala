@@ -1,5 +1,7 @@
 package com.zte.bigdata.common.database.gbase
 
+import java.sql.ResultSet
+
 class SqlResult(val name: List[String], val value: List[List[String]]) {
   def cell(row: Int, column: Int): String = {
     if (row < value.length && column < name.length) value(row)(column)
@@ -45,4 +47,17 @@ class SqlResult(val name: List[String], val value: List[List[String]]) {
 
 object SqlResult {
   def apply(name: List[String], value: List[List[String]]): SqlResult = new SqlResult(name, value)
+  def apply(rs:ResultSet):SqlResult = {
+    val columnCount = rs.getMetaData.getColumnCount
+    val rows: List[List[String]] = {
+      var valueList: List[List[String]] = List()
+      while (rs.next()) {
+        val oneLine = (1 to columnCount).map(rs.getString).toList
+        valueList = oneLine :: valueList
+      }
+      valueList.reverse
+    }
+    val columns: List[String] = (1 to columnCount).map(rs.getMetaData.getColumnName).toList
+    apply(columns,rows)
+  }
 }
