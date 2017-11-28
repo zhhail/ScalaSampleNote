@@ -1,31 +1,134 @@
 package com.zte.bigdata.xmlreader.common
 
+import java.io.OutputStreamWriter
+
 trait NorthMR_XML_Info {
-  val filterColums = Vector("MR.LteScEarfcn",
-    /*"MR.LteScAOA",
-    "MR.LteScPHR",
-    "MR.LteScPci",
-    "MR.LteScRSRP",
-    "MR.LteScRSRQ",
-    "MR.LteScSinrUL",
-    "MR.LteScTadv",*/
-    "MR.LteNcEarfcn",
-    "MR.LteNcPci",
-    "MR.LteNcRSRP",
-    "MR.LteNcRSRQ",
-        "MR.Latitude" /*,
-        "MR.LatitudeSign",
-        "MR.Longitude"*/)
+  //  DateTime
+  //  MilliSec
+  //  Network
+  //  eNodeBID
+  //  CID
+  //  UEGid
+  //  TraceID
+  //  CallRecordUEID
+  //  IMSI
+  //  DataType
+  //  UeUlSinr
+  //  UePhr
+  //  AoA
+  //  UeRxTxDiff
+  //  EnbRxTxDiff
+  //  RecvBsr
+  //  PuschPrbNum
+  //  PdschPrbNum
+  //  UlErabSetupPresent
+  //  UlPdcpPktLossCtn
+  //  UlPdcpPktCtn
+  //  DlErabSetupPresent
+  //  DlPdcpPktLossCtn
+  //  DlPdcpPktCtn
+  //  UlPdcpErabTput
+  //  DlPdcpErabTput
+  //  ErabQCI
+  //  RlcUlFlowRate
+  //  RlcDlFlowRate
+  //  DmacUlFlowRate
+  //  DmacDlFlowRate
+  //  UlPdcpErabTimerLen
+  //  DlPdcpErabTimerLen
+  //  AvgRIP
+  //  PdschMcsCtn
+  //  PuschMcsCtn
+  //  PdschAckCtn
+  //  PdschNackCtn
+  //  PdschDtxCtn
+  //  PuschAckCtn
+  //  PuschNackCtn
+  //  DlRsTxPower
+  //  ThermalNoisePower
+  //  ServerRsrp
+  //  ServerCellEarfcn
+  //  ServerCellPci
+  //  ServerRsrq
+  //  NeighCellNum
+  //  NeighCellEarfcn
+  //  NeighCellENBID
+  //  NeighCellID
+  //  NeighPCI
+  //  NeighCellRSRP
+  //  NeighCellRSRQ
+  //  UELat
+  //  UELon
+  //  IMEI
+  //  PdschTmCtn
+  //  TA
+  //  PdschSingleFlowAveMcs
+  //  PdschDoubleFlow1AveMcs
+  //  PdschDoubleFlow2AveMcs
+  //  PuschAveMcs
+  //  Cqi0
+  //  Cqi1
+  //  SuperCellType
+  //  SuperCellCpid
+  //  MMEC
+  //  MMEApID
+  //  MMEGroupID
+  //  MRLon
+  //  MRLat
+  val filterColums = Vector("MR.LTESCEARFCN",
+    "MR.LTESCPCI",
+    "MR.LTESCRSRP",
+    "MR.LTESCRSRQ",
+    "MR.LTESCTADV",
+    "MR.LTESCPHR",
+    "MR.LTESCAOA",
+    "MR.LTESCSINRUL",
+    "MR.LTESCRI1",
+    "MR.LTESCRI2",
+    "MR.LTESCRI4",
+    "MR.LTESCRI8",
+    "MR.CQI0",
+    "MR.CQI1",
+    "MR.LATITUDESIGN",
+    "MR.LTENCEARFCN",
+    "MR.LTENCPCI",
+    "MR.LTENCRSRP",
+    "MR.LTENCRSRQ",
+    "MR.LTESCPUSCHPRBNUM",
+    "MR.LTESCPDSCHPRBNUM",
+    "MR.LTESCBSR",
+    "MR.CDMATYPE",
+    "MR.CDMANCBAND",
+    "MR.CDMANCARFCN",
+    "MR.CDMAPNPHASE",
+    "MR.LTECDMAORHRPDNCPILOTSTRENGTH",
+    "MR.CDMANCPCI",
+    "MR.LONGITUDE",
+    "MR.LATITUDE")
+  var headInfoIndex: Vector[Int] = Vector()
+
   val headInfoFromObject = Vector(
     "TimeStamp",
     "MmeUeS1apId",
     "MmeGroupId",
     "MmeCode")
+
+  def outputObjectInfo(fileWriter: OutputStreamWriter, line: String): Unit = {
+    //        fileWriter.write(line)
+    //    JavaXmlSaxBoot.count += 1
+  }
   val eNBIdInXml = "id"
 }
 
 trait NorthMR_XML_Reader {
-  def parseAndSave(xmlFileName: String, outFileName: String): Unit
+  def parseAndSave(xmlgzFileNames: Vector[String], outFileName: String): Unit = {
+    //    接口中不再支持解析 xml 格式文件，只保留gz后的xml文件处理
+    val gzs = xmlgzFileNames.filter(_.endsWith(".gz"))
+    parseAndSave_gz(gzs, outFileName)
+  }
+
+  protected def parseAndSave_gz(xmlgzFileNames: Vector[String], outFileName: String): Unit
+
 }
 
 trait NorthMR_XML_Info_ZTE extends NorthMR_XML_Info {

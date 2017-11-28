@@ -1,7 +1,8 @@
-package com.zte.bigdata.xmlreader.common.javareader
+package com.zte.bigdata.xmlreader.javareader
 
 import org.scalatest.FlatSpec
 import com.zte.bigdata.xmlreader.common.NorthMR_XML_Info
+import com.zte.bigdata.xmlreader.dom.NorthMR_XML_Reader_JavaDomImpl
 
 /**
  * Created by 10010581 on 2016/10/19.
@@ -9,7 +10,8 @@ import com.zte.bigdata.xmlreader.common.NorthMR_XML_Info
 class NorthMR_XML_Reader_JavaImplDomTest extends FlatSpec {
   it should "com.zte.bigdata.common Dom of java" in {
     val temp = new NorthMR_XML_Reader_JavaDomImpl with NorthMR_XML_Info
-    val r = temp.xml2csv("src\\test\\resources\\FDD-LTE_MRO_NSN_OMC_659001_20160817111500_sample.xml")
-    println(r.mkString(",\n") + "\n")
+    val r = temp.xml2csv("src/test/resources/gz/FDD_LTE_MRO_HUAWEI_639168_20160817014500.xml.gz")
+//    println(r.mkString(",\n") + "\n")
+    println("parse file complete, output length: "+r.length)
   }
 }

@@ -1,13 +1,16 @@
-package com.zte.bigdata.xmlreader.common.javareader
+package com.zte.bigdata.xmlreader.dom
 
+import java.io.{FileInputStream, FileOutputStream, OutputStreamWriter}
+import java.util.zip.GZIPInputStream
 import javax.xml.parsers.{DocumentBuilder, DocumentBuilderFactory}
-import org.w3c.dom.{NodeList, Element, Document}
-import java.io.{FileOutputStream, OutputStreamWriter, File}
-import com.zte.bigdata.xmlreader.common.{NorthMR_XML_Reader, NorthMR_XML_Info, Using}
+
+import com.zte.bigdata.xmlreader.common.{NorthMR_XML_Info, NorthMR_XML_Reader, Using}
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream
+import org.w3c.dom.{Document, Element, NodeList}
 
 trait NorthMR_XML_Reader_JavaDomImpl extends Using with NorthMR_XML_Reader{
   this: NorthMR_XML_Info =>
-  val builderFactory = DocumentBuilderFactory.newInstance()
+  val builderFactory: DocumentBuilderFactory = DocumentBuilderFactory.newInstance()
 
   def writeToFile(data: String, outputFile: String): Unit = {
     using(new OutputStreamWriter(new FileOutputStream(outputFile), "UTF-8")) {
@@ -15,12 +18,14 @@ trait NorthMR_XML_Reader_JavaDomImpl extends Using with NorthMR_XML_Reader{
     }
   }
 
-  override def parseAndSave(xmlFileName: String, outFileName: String): Unit =
-    writeToFile(xml2csv(xmlFileName).mkString(",\n") + ",\n", outFileName)
+  override def parseAndSave_gz(xmlFileName: Vector[String], outFileName: String): Unit =
+    writeToFile(xml2csv(xmlFileName.head).mkString(",\n") + ",\n", outFileName)
 
   def parse(xmlFileName: String): Document = {
     val builder: DocumentBuilder = builderFactory.newDocumentBuilder()
-    builder.parse(new File(xmlFileName))
+    using(new FileInputStream(xmlFileName)) {
+      gz => using(new GZIPInputStream(gz))(builder.parse)
+    }
   }
 
   def xml2csv(xmlFileName: String): Seq[String] = {
@@ -41,8 +46,8 @@ trait NorthMR_XML_Reader_JavaDomImpl extends Using with NorthMR_XML_Reader{
           for (k <- Range(0, smrobjlist.getLength)) {
             val smrobj = smrobjlist.item(k)
             if (smrobj.getNodeName == "smr") {
-              val msr = smrobj.getTextContent.split(" ").zipWithIndex.toMap
-              filterColumsIndex = filterColums.map(msr.get)
+              val msr = smrobj.getTextContent.toLowerCase.split(" ").zipWithIndex.toMap
+              filterColumsIndex = filterColums.map(x=>msr.get(x.toLowerCase))
             }
             else if (filterColumsIndex.count(_.isDefined) > 0 && smrobj.getNodeName == "object") {
               val headinfo = headInfoFromObject.map(key => smrobj.getAttributes.getNamedItem(key).getNodeValue.replaceAll("T", " ")).mkString(",")

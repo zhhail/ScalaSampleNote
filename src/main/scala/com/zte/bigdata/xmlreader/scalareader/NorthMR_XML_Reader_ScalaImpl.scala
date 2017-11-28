@@ -1,8 +1,8 @@
-package com.zte.bigdata.xmlreader.common.scalareader
+package com.zte.bigdata.xmlreader.scalareader
 
 import java.io.{FileOutputStream, OutputStreamWriter}
 import scala.xml.Elem
-import com.zte.bigdata.xmlreader.common.{Using, NorthMR_XML_Reader, RecordInfo, NorthMR_XML_Info}
+import com.zte.bigdata.xmlreader.common.{Using, NorthMR_XML_Reader, NorthMR_XML_Info}
 
 /**
  * Created by 10010581 on 2016/10/19.
@@ -15,8 +15,8 @@ trait NorthMR_XML_Reader_ScalaImpl extends  NorthMR_XML_Reader  with Using{
     }
   }
 
-  def parseAndSave(xmlFileName: String, outFileName: String): Unit =
-    writeToFile(xml2csv(xmlFileName).mkString("\n") + "\n", outFileName)
+  def parseAndSave_gz(xmlFileName: Vector[String], outFileName: String): Unit =
+    writeToFile(xml2csv(xmlFileName.head).mkString("\n") + "\n", outFileName)
 
   def loadfile(xmlFileName: String): Elem
 
@@ -46,3 +46,5 @@ trait NorthMR_XML_Reader_ScalaImpl extends  NorthMR_XML_Reader  with Using{
     }
   }
 }
+
+case class RecordInfo(index: Int, neighbor: Boolean)
