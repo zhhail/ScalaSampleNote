@@ -10,7 +10,7 @@ import com.zte.bigdata.xmlreader.dom.NorthMR_XML_Reader_JavaDomImpl
 class NorthMR_XML_Reader_JavaImplDomTest extends FlatSpec {
   it should "com.zte.bigdata.common Dom of java" in {
     val temp = new NorthMR_XML_Reader_JavaDomImpl with NorthMR_XML_Info
-    val r = temp.xml2csv("src/test/resources/gz/FDD_LTE_MRO_HUAWEI_639168_20160817014500.xml.gz")
+    val r = temp.xml2csv("src/test/resources/gz/FDD-LTE_MRO_HUAWEI_86493_20170902043000.xml.gz")
 //    println(r.mkString(",\n") + "\n")
     println("parse file complete, output length: "+r.length)
   }

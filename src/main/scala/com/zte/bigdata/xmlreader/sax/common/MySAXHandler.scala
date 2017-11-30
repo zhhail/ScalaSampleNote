@@ -17,7 +17,7 @@ class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
   private var objContext = Vector[String]()
   private var smr = Vector[String]()
   private var indexs: Map[String, Int] = smr.zipWithIndex.toMap
-  private var valid: Boolean = indexs.get("MR.LteNcEarfcn").isDefined
+  private var valid: Boolean = indexs.get("MR.LteNcEarfcn".toLowerCase).isDefined
   private var filterColumsIndex = Vector[Int]()
 
   override def startElement(uri: String,
@@ -28,15 +28,11 @@ class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
     qName match {
       case "eNB" =>
         eNBId = attributes.getValue(eNBIdInXml)
-      case "object" =>
-        //        if (headInfoIndex.isEmpty) headInfoIndex = headInfoFromObject.map(attributes.getIndex)
-        //        val h=headInfoIndex.map(attributes.getValue)
-        val h = headInfoFromObject.map(attributes.getValue)
+      case "object" if valid =>
+        val h = headInfoFromObject.map(attributes.getValue).map(x=>if(x=="NIL")"" else x)
         val time = (sDateFormat.parse(h.head.take(10) + " " + h.head.drop(11)).getTime - JavaXmlSaxBoot.dStart) / 1000
         val ms = h.head.takeRight(3).dropWhile(_ == '0')
         head = (Vector(time, ms) ++ h.tail).mkString(",")
-      case "measurement" =>
-        headInfoIndex = Vector()
       case _ =>
     }
   }
@@ -48,8 +44,9 @@ class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
     qName match {
       case "measurement" =>
         smr = Vector()
-      case "object" =>
-        if (valid) outputObjectInfo(fileWriter, s"$eNBId,$head,${objContext.mkString(",")},\n")
+      case "object" if valid =>
+        outputObjectInfo(fileWriter, s"$eNBId,$head,${objContext.mkString(",")},\n")
+        objContext = Vector()
       case _ =>
     }
   }
@@ -60,9 +57,9 @@ class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
         addcontext(new String(ch, start, length))
       case "smr" =>
         val context = new String(ch, start, length)
-        smr = context.split(" ").toVector
+        smr = context.toLowerCase.split(" ").toVector
         indexs = smr.zipWithIndex.toMap
-        valid = indexs.get("MR.LteNcEarfcn").isDefined
+        valid = indexs.get("MR.LteNcEarfcn".toLowerCase).isDefined
         filterColumsIndex = filterColums.map(x => indexs.getOrElse(x, 65535))
       case _ =>
     }
@@ -82,7 +79,7 @@ class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
 
   private def xadd(s: Vector[String], t: Vector[String]): Vector[String] = {
     s.zip(t).zip(filterColums).map {
-      case (v, k) => if (k.contains("LteNc")) v._1 + "$" + v._2 else v._1
+      case (v, k) => if (k.contains("ltenc")) v._1 + "$" + v._2 else v._1
     }
   }
 }

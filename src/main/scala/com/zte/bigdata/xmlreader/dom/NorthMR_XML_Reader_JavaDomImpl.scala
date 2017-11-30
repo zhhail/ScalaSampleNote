@@ -62,7 +62,7 @@ trait NorthMR_XML_Reader_JavaDomImpl extends Using with NorthMR_XML_Reader{
               })
 
               def xadd(s: Vector[String], t: Vector[String]): Vector[String] = {
-                s.zip(t).zip(filterColums).map(x => if (x._2.contains("LteNc")) x._1._1 + "$" + x._1._2 else x._1._1)
+                s.zip(t).zip(filterColums).map(x => if (x._2.contains("ltenc")) x._1._1 + "$" + x._1._2 else x._1._1)
               }
               result = result :+ s"$eNBId,$headinfo,${v.reduce(xadd).mkString(",")}"
             }

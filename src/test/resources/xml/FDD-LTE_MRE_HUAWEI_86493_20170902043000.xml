@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bulkPmMrDataFile>
+  <fileHeader fileFormatVersion="V1.0.0" reportTime="2017-09-02T04:55:50.000" startTime="2017-09-02T04:30:00.000" endTime="2017-09-02T04:45:00.000" period="0" jobid="0"/>
+  <eNB id="86493" userLabel="userLabel">
+    <measurement>
+      <smr>MR.LteScRSRP MR.LteNcRSRP MR.LteScRSRQ MR.LteNcRSRQ MR.LteScEarfcn MR.LteScPci MR.LteNcEarfcn MR.LteNcPci MR.CDMAtype MR.CDMANcBand MR.CDMANcArfcn MR.CDMAPNphase MR.LteCDMAorHRPDNcPilotStrength MR.CDMANcPci</smr>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453029642" PLMNID="64F011" TimeStamp="2017-09-02T04:30:53.546" id="179">
+        <v>13 NIL 11 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="212" MmeGroupId="37121" MmeUeS1apId="538365441" PLMNID="64F010" TimeStamp="2017-09-02T04:30:59.050" id="131">
+        <v>32 35 21 NIL 1650 186 1650 366 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417098011" PLMNID="64F010" TimeStamp="2017-09-02T04:31:00.334" id="132">
+        <v>21 24 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="212" MmeGroupId="37121" MmeUeS1apId="2416861621" PLMNID="64F010" TimeStamp="2017-09-02T04:31:09.468" id="132">
+        <v>16 NIL 11 NIL 1650 187 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218117092" PLMNID="64F011" TimeStamp="2017-09-02T04:31:11.615" id="179">
+        <v>13 NIL 9 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417115691" PLMNID="64F010" TimeStamp="2017-09-02T04:31:16.618" id="132">
+        <v>22 25 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453008346" PLMNID="64F011" TimeStamp="2017-09-02T04:31:18.320" id="179">
+        <v>13 NIL 12 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218115031" PLMNID="64F011" TimeStamp="2017-09-02T04:31:23.333" id="179">
+        <v>13 NIL 15 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218183407" PLMNID="64F011" TimeStamp="2017-09-02T04:31:28.222" id="179">
+        <v>13 NIL 8 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218129391" PLMNID="64F011" TimeStamp="2017-09-02T04:32:02.393" id="179">
+        <v>13 NIL 14 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453012896" PLMNID="64F011" TimeStamp="2017-09-02T04:32:03.038" id="179">
+        <v>12 NIL 11 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218110917" PLMNID="64F011" TimeStamp="2017-09-02T04:32:07.234" id="179">
+        <v>12 NIL 11 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="206" MmeGroupId="37121" MmeUeS1apId="270314607" PLMNID="64F010" TimeStamp="2017-09-02T04:32:14.536" id="131">
+        <v>40 43 25 NIL 1650 186 1650 241 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218171948" PLMNID="64F011" TimeStamp="2017-09-02T04:32:19.661" id="179">
+        <v>13 NIL 12 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="206" MmeGroupId="37121" MmeUeS1apId="270356593" PLMNID="64F010" TimeStamp="2017-09-02T04:32:33.806" id="131">
+        <v>40 42 26 NIL 1650 186 1650 241 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="210" MmeGroupId="37121" MmeUeS1apId="859010" PLMNID="64F010" TimeStamp="2017-09-02T04:32:34.535" id="133">
+        <v>25 27 14 NIL 1650 188 1650 187 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453027293" PLMNID="64F011" TimeStamp="2017-09-02T04:33:00.777" id="179">
+        <v>13 NIL 12 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="210" MmeGroupId="37121" MmeUeS1apId="894017" PLMNID="64F010" TimeStamp="2017-09-02T04:33:13.100" id="133">
+        <v>25 28 20 NIL 1650 188 1650 192 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="206" MmeGroupId="37121" MmeUeS1apId="268440889" PLMNID="64F010" TimeStamp="2017-09-02T04:34:07.166" id="131">
+        <v>40 42 26 NIL 1650 186 1650 241 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="210" MmeGroupId="37121" MmeUeS1apId="2684908124" PLMNID="64F010" TimeStamp="2017-09-02T04:34:12.949" id="133">
+        <v>29 32 19 NIL 1650 188 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218130887" PLMNID="64F011" TimeStamp="2017-09-02T04:34:19.382" id="179">
+        <v>13 NIL 13 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218164618" PLMNID="64F011" TimeStamp="2017-09-02T04:34:26.406" id="179">
+        <v>13 NIL 21 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="206" MmeGroupId="37121" MmeUeS1apId="268477723" PLMNID="64F010" TimeStamp="2017-09-02T04:34:47.202" id="131">
+        <v>40 42 27 NIL 1650 186 1650 241 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="210" MmeGroupId="37121" MmeUeS1apId="1006126" PLMNID="64F010" TimeStamp="2017-09-02T04:34:57.718" id="131">
+        <v>22 27 17 NIL 1650 186 1650 240 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453059486" PLMNID="64F011" TimeStamp="2017-09-02T04:35:08.870" id="179">
+        <v>13 NIL 11 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218151158" PLMNID="64F011" TimeStamp="2017-09-02T04:35:16.973" id="179">
+        <v>12 NIL 10 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="206" MmeGroupId="37121" MmeUeS1apId="268508086" PLMNID="64F010" TimeStamp="2017-09-02T04:35:18.547" id="131">
+        <v>40 42 26 NIL 1650 186 1650 241 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="210" MmeGroupId="37121" MmeUeS1apId="1046691" PLMNID="64F010" TimeStamp="2017-09-02T04:35:30.751" id="133">
+        <v>24 28 14 NIL 1650 188 1650 187 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="206" MmeGroupId="37121" MmeUeS1apId="268544961" PLMNID="64F010" TimeStamp="2017-09-02T04:35:52.806" id="131">
+        <v>40 42 26 NIL 1650 186 1650 241 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453037277" PLMNID="64F011" TimeStamp="2017-09-02T04:36:22.649" id="179">
+        <v>13 23 7 NIL 1825 71 1825 70 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218147939" PLMNID="64F011" TimeStamp="2017-09-02T04:36:27.816" id="179">
+        <v>13 NIL 11 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417466142" PLMNID="64F010" TimeStamp="2017-09-02T04:37:00.669" id="132">
+        <v>21 23 15 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453051785" PLMNID="64F011" TimeStamp="2017-09-02T04:37:16.836" id="179">
+        <v>13 NIL 12 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453004156" PLMNID="64F011" TimeStamp="2017-09-02T04:37:36.163" id="179">
+        <v>13 NIL 11 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="210" MmeGroupId="37121" MmeUeS1apId="1195792" PLMNID="64F010" TimeStamp="2017-09-02T04:37:49.071" id="133">
+        <v>31 34 12 NIL 1650 188 1650 187 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453017663" PLMNID="64F011" TimeStamp="2017-09-02T04:38:19.117" id="179">
+        <v>13 NIL 11 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218125182" PLMNID="64F011" TimeStamp="2017-09-02T04:38:28.020" id="179">
+        <v>12 NIL 14 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218106186" PLMNID="64F011" TimeStamp="2017-09-02T04:38:40.103" id="179">
+        <v>13 NIL 12 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417593631" PLMNID="64F010" TimeStamp="2017-09-02T04:39:03.212" id="132">
+        <v>21 23 18 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417607240" PLMNID="64F010" TimeStamp="2017-09-02T04:39:18.586" id="132">
+        <v>21 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417613830" PLMNID="64F010" TimeStamp="2017-09-02T04:39:22.441" id="132">
+        <v>21 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417613830" PLMNID="64F010" TimeStamp="2017-09-02T04:39:23.981" id="132">
+        <v>21 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218172744" PLMNID="64F011" TimeStamp="2017-09-02T04:39:25.291" id="177">
+        <v>14 17 10 NIL 1825 69 1825 138 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="452991788" PLMNID="64F011" TimeStamp="2017-09-02T04:39:28.223" id="179">
+        <v>13 NIL 11 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417620812" PLMNID="64F010" TimeStamp="2017-09-02T04:39:31.062" id="132">
+        <v>21 24 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417625537" PLMNID="64F010" TimeStamp="2017-09-02T04:39:33.250" id="132">
+        <v>21 25 18 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417629113" PLMNID="64F010" TimeStamp="2017-09-02T04:39:39.059" id="132">
+        <v>21 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417633751" PLMNID="64F010" TimeStamp="2017-09-02T04:39:41.262" id="132">
+        <v>22 24 18 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417633751" PLMNID="64F010" TimeStamp="2017-09-02T04:39:43.179" id="132">
+        <v>21 25 18 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417639257" PLMNID="64F010" TimeStamp="2017-09-02T04:39:48.670" id="132">
+        <v>21 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417643472" PLMNID="64F010" TimeStamp="2017-09-02T04:39:50.865" id="132">
+        <v>22 24 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453046837" PLMNID="64F011" TimeStamp="2017-09-02T04:39:51.501" id="178">
+        <v>28 30 20 NIL 1825 70 1825 71 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417643472" PLMNID="64F010" TimeStamp="2017-09-02T04:39:52.775" id="132">
+        <v>21 24 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453046837" PLMNID="64F011" TimeStamp="2017-09-02T04:39:55.664" id="179">
+        <v>29 40 20 NIL 1825 71 1825 70 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417649286" PLMNID="64F010" TimeStamp="2017-09-02T04:39:57.603" id="132">
+        <v>21 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417654977" PLMNID="64F010" TimeStamp="2017-09-02T04:40:04.029" id="132">
+        <v>21 24 15 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417660644" PLMNID="64F010" TimeStamp="2017-09-02T04:40:06.542" id="132">
+        <v>22 25 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="210" MmeGroupId="37121" MmeUeS1apId="268936055" PLMNID="64F010" TimeStamp="2017-09-02T04:40:19.892" id="133">
+        <v>23 31 21 NIL 1650 188 1650 9 NIL NIL NIL NIL NIL NIL</v>
+        <v>23 28 21 NIL 1650 188 1650 293 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453016704" PLMNID="64F011" TimeStamp="2017-09-02T04:40:42.121" id="179">
+        <v>13 NIL 11 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218121581" PLMNID="64F011" TimeStamp="2017-09-02T04:40:47.237" id="179">
+        <v>12 NIL 17 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218112999" PLMNID="64F011" TimeStamp="2017-09-02T04:40:48.892" id="179">
+        <v>12 NIL 11 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="206" MmeGroupId="37121" MmeUeS1apId="268832938" PLMNID="64F010" TimeStamp="2017-09-02T04:40:55.850" id="131">
+        <v>40 42 24 NIL 1650 186 1650 241 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218129903" PLMNID="64F011" TimeStamp="2017-09-02T04:40:57.173" id="179">
+        <v>13 NIL 14 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417718912" PLMNID="64F010" TimeStamp="2017-09-02T04:41:03.626" id="132">
+        <v>21 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417721344" PLMNID="64F010" TimeStamp="2017-09-02T04:41:06.448" id="132">
+        <v>21 25 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417724582" PLMNID="64F010" TimeStamp="2017-09-02T04:41:09.297" id="132">
+        <v>21 24 15 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417724582" PLMNID="64F010" TimeStamp="2017-09-02T04:41:13.468" id="132">
+        <v>21 25 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417724582" PLMNID="64F010" TimeStamp="2017-09-02T04:41:15.016" id="132">
+        <v>21 24 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417733021" PLMNID="64F010" TimeStamp="2017-09-02T04:41:17.961" id="132">
+        <v>21 24 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417733021" PLMNID="64F010" TimeStamp="2017-09-02T04:41:19.799" id="132">
+        <v>21 24 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="210" MmeGroupId="37121" MmeUeS1apId="1206434" PLMNID="64F010" TimeStamp="2017-09-02T04:41:20.113" id="133">
+        <v>23 28 17 NIL 1650 188 1650 293 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417737795" PLMNID="64F010" TimeStamp="2017-09-02T04:41:22.744" id="132">
+        <v>21 24 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417737795" PLMNID="64F010" TimeStamp="2017-09-02T04:41:26.573" id="132">
+        <v>21 25 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417743991" PLMNID="64F010" TimeStamp="2017-09-02T04:41:29.148" id="132">
+        <v>21 24 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417743991" PLMNID="64F010" TimeStamp="2017-09-02T04:41:30.685" id="132">
+        <v>21 25 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218169592" PLMNID="64F011" TimeStamp="2017-09-02T04:41:31.826" id="177">
+        <v>50 57 30 NIL 1825 69 1825 214 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417743991" PLMNID="64F010" TimeStamp="2017-09-02T04:41:32.611" id="132">
+        <v>21 24 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="212" MmeGroupId="37121" MmeUeS1apId="2417470046" PLMNID="64F010" TimeStamp="2017-09-02T04:41:32.658" id="131">
+        <v>20 24 18 NIL 1650 186 1650 368 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417743991" PLMNID="64F010" TimeStamp="2017-09-02T04:41:33.894" id="132">
+        <v>21 24 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453034898" PLMNID="64F011" TimeStamp="2017-09-02T04:41:35.464" id="179">
+        <v>13 NIL 12 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417743991" PLMNID="64F010" TimeStamp="2017-09-02T04:41:36.756" id="132">
+        <v>21 24 15 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417743991" PLMNID="64F010" TimeStamp="2017-09-02T04:41:39.706" id="132">
+        <v>21 24 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417743991" PLMNID="64F010" TimeStamp="2017-09-02T04:41:41.257" id="132">
+        <v>21 23 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417758626" PLMNID="64F010" TimeStamp="2017-09-02T04:41:43.861" id="132">
+        <v>21 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417761793" PLMNID="64F010" TimeStamp="2017-09-02T04:41:46.679" id="132">
+        <v>22 25 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417761793" PLMNID="64F010" TimeStamp="2017-09-02T04:41:50.544" id="132">
+        <v>21 24 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417768262" PLMNID="64F010" TimeStamp="2017-09-02T04:41:52.764" id="132">
+        <v>22 24 18 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417768262" PLMNID="64F010" TimeStamp="2017-09-02T04:41:54.692" id="132">
+        <v>21 24 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417768262" PLMNID="64F010" TimeStamp="2017-09-02T04:41:56.613" id="132">
+        <v>21 24 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417774695" PLMNID="64F010" TimeStamp="2017-09-02T04:42:00.165" id="132">
+        <v>21 25 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417774695" PLMNID="64F010" TimeStamp="2017-09-02T04:42:02.057" id="132">
+        <v>21 24 18 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417774695" PLMNID="64F010" TimeStamp="2017-09-02T04:42:03.977" id="132">
+        <v>21 24 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417774695" PLMNID="64F010" TimeStamp="2017-09-02T04:42:05.880" id="132">
+        <v>21 24 18 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417774695" PLMNID="64F010" TimeStamp="2017-09-02T04:42:07.819" id="132">
+        <v>21 25 14 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417774695" PLMNID="64F010" TimeStamp="2017-09-02T04:42:09.738" id="132">
+        <v>21 24 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417774695" PLMNID="64F010" TimeStamp="2017-09-02T04:42:11.663" id="132">
+        <v>21 24 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417774695" PLMNID="64F010" TimeStamp="2017-09-02T04:42:13.574" id="132">
+        <v>20 25 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="269039057" PLMNID="64F010" TimeStamp="2017-09-02T04:42:15.223" id="133">
+        <v>22 26 16 NIL 1650 188 1650 292 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417774695" PLMNID="64F010" TimeStamp="2017-09-02T04:42:15.482" id="132">
+        <v>21 24 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417794746" PLMNID="64F010" TimeStamp="2017-09-02T04:42:18.042" id="132">
+        <v>21 25 15 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218127882" PLMNID="64F011" TimeStamp="2017-09-02T04:42:20.632" id="179">
+        <v>12 NIL 10 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417804687" PLMNID="64F010" TimeStamp="2017-09-02T04:42:28.941" id="132">
+        <v>20 23 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417809759" PLMNID="64F010" TimeStamp="2017-09-02T04:42:35.698" id="132">
+        <v>20 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417809759" PLMNID="64F010" TimeStamp="2017-09-02T04:42:37.565" id="132">
+        <v>20 25 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="452988454" PLMNID="64F011" TimeStamp="2017-09-02T04:42:39.166" id="177">
+        <v>21 24 16 NIL 1825 69 1825 213 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417818625" PLMNID="64F010" TimeStamp="2017-09-02T04:42:42.054" id="132">
+        <v>20 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417822806" PLMNID="64F010" TimeStamp="2017-09-02T04:42:46.207" id="132">
+        <v>20 23 15 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417822806" PLMNID="64F010" TimeStamp="2017-09-02T04:42:48.138" id="132">
+        <v>20 25 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417828899" PLMNID="64F010" TimeStamp="2017-09-02T04:42:52.984" id="132">
+        <v>20 23 15 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417834317" PLMNID="64F010" TimeStamp="2017-09-02T04:42:57.405" id="132">
+        <v>20 22 15 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218110951" PLMNID="64F011" TimeStamp="2017-09-02T04:42:58.568" id="179">
+        <v>13 NIL 12 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417838735" PLMNID="64F010" TimeStamp="2017-09-02T04:43:02.273" id="132">
+        <v>20 24 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417844066" PLMNID="64F010" TimeStamp="2017-09-02T04:43:06.376" id="132">
+        <v>20 22 15 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417844066" PLMNID="64F010" TimeStamp="2017-09-02T04:43:08.287" id="132">
+        <v>20 24 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453021656" PLMNID="64F011" TimeStamp="2017-09-02T04:43:08.310" id="179">
+        <v>13 NIL 15 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417850311" PLMNID="64F010" TimeStamp="2017-09-02T04:43:12.826" id="132">
+        <v>20 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453011563" PLMNID="64F011" TimeStamp="2017-09-02T04:43:13.784" id="177">
+        <v>23 25 21 NIL 1825 69 1825 138 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417854731" PLMNID="64F010" TimeStamp="2017-09-02T04:43:16.986" id="132">
+        <v>20 23 15 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417859048" PLMNID="64F010" TimeStamp="2017-09-02T04:43:21.469" id="132">
+        <v>20 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417863502" PLMNID="64F010" TimeStamp="2017-09-02T04:43:25.952" id="132">
+        <v>20 22 15 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417868379" PLMNID="64F010" TimeStamp="2017-09-02T04:43:29.739" id="132">
+        <v>20 23 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="453002015" PLMNID="64F011" TimeStamp="2017-09-02T04:43:30.083" id="178">
+        <v>12 NIL 10 NIL 1825 70 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417872631" PLMNID="64F010" TimeStamp="2017-09-02T04:43:34.211" id="132">
+        <v>20 23 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417876358" PLMNID="64F010" TimeStamp="2017-09-02T04:43:38.098" id="132">
+        <v>20 22 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417879758" PLMNID="64F010" TimeStamp="2017-09-02T04:43:40.929" id="132">
+        <v>20 25 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="1" MmeGroupId="17152" MmeUeS1apId="452987313" PLMNID="64F011" TimeStamp="2017-09-02T04:43:43.755" id="179">
+        <v>12 NIL 10 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417883647" PLMNID="64F010" TimeStamp="2017-09-02T04:43:46.096" id="132">
+        <v>20 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417888540" PLMNID="64F010" TimeStamp="2017-09-02T04:43:49.949" id="132">
+        <v>20 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417892107" PLMNID="64F010" TimeStamp="2017-09-02T04:43:54.418" id="132">
+        <v>20 23 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218172795" PLMNID="64F011" TimeStamp="2017-09-02T04:43:55.011" id="179">
+        <v>13 NIL 16 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417897129" PLMNID="64F010" TimeStamp="2017-09-02T04:43:58.589" id="132">
+        <v>20 22 14 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417901491" PLMNID="64F010" TimeStamp="2017-09-02T04:44:03.014" id="132">
+        <v>20 22 16 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417906908" PLMNID="64F010" TimeStamp="2017-09-02T04:44:08.822" id="132">
+        <v>20 22 17 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A2" MmeCode="2" MmeGroupId="17152" MmeUeS1apId="218174876" PLMNID="64F011" TimeStamp="2017-09-02T04:44:15.198" id="179">
+        <v>12 NIL 11 NIL 1825 71 NIL NIL NIL NIL NIL NIL NIL NIL</v>
+      </object>
+      <object EventType="A3" MmeCode="208" MmeGroupId="37121" MmeUeS1apId="2417912607" PLMNID="64F010" TimeStamp="2017-09-02T04:44:15.868" id="132">
+        <v>21 23 15 NIL 1650 187 1650 340 NIL NIL NIL NIL NIL NIL</v>
+      </object>
+    </measurement>
+  </eNB>
+</bulkPmMrDataFile>

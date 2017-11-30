@@ -30,7 +30,7 @@ trait NorthMR_XML_Reader_ScalaImpl extends  NorthMR_XML_Reader  with Using{
         // println("@@@@@@@@@@"+eNBId)
         val mr = eNB \ "measurement" filter (m => (m \ "smr").text.contains("MR.LteNcEarfcn"))
         val columsMap = (mr \ "smr").text.split(" ", -1).zipWithIndex.toMap
-        val columsIndexs = filterColums.map(x => RecordInfo(columsMap.getOrElse(x, -1), x.contains("LteNc")))
+        val columsIndexs = filterColums.map(x => RecordInfo(columsMap.getOrElse(x, -1), x.contains("ltenc")))
         mr \ "object" flatMap {
           obj =>
             val header = s"$eNBId," + headInfoFromObject.map(c => (obj \\ s"@$c").text).mkString(",").replaceAll("NIL", "").replaceAll("T", " ")

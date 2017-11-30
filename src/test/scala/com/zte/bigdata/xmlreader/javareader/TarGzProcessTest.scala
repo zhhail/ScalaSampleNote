@@ -1,30 +1,46 @@
 package com.zte.bigdata.xmlreader.javareader
 
-import java.io.FileInputStream
+import java.io.{FileInputStream, OutputStreamWriter}
 import java.util.zip.GZIPInputStream
 
 import com.zte.bigdata.common.{TestUtils, UnitSpec, Using}
 import com.zte.bigdata.xmlreader.common.NorthMR_XML_Info
 import com.zte.bigdata.xmlreader.sax.{NorthMR_XML_Reader_JavaSaxImpl, NorthMR_XML_Reader_JavaSaxImpl_empty}
 import com.zte.bigdata.xmlreader.stax.{NorthMR_XML_Reader_JavaStAXImpl, NorthMR_XML_Reader_JavaStAXImpl_empty}
-import org.apache.commons.compress.archivers.{ArchiveEntry, ArchiveInputStream, ArchiveStreamFactory}
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
+import org.apache.commons.compress.archivers.{ArchiveEntry, ArchiveInputStream}
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream
 
 class TarGzProcessTest extends UnitSpec with Using with TestUtils{
-  describe("gz格式文件测试") {
-    it("test gz file") {
-      showgz("src/test/resources/gz/FDD_LTE_MRS_HUAWEI_639168_20160817000000.xml.gz")
-    }
+  describe("等价性测试： sax == stax") {
+    pending
+    it("test HW MRO： sax == stax ") {
+      val inputFile = "src/test/resources/gz/FDD-LTE_MRO_HUAWEI_86493_20170902043000.xml.gz"
+      val outSax = "out/difftest_sax_hw_gz.csv"
+      val outStAX = "out/difftest_stax_hw_gz.csv"
 
-    it("test tgz gz file") {
-      shougztgz("src/test/resources/tgz/all.tgz")
-    }
-    it ("test performance" ){
+      val sax = new NorthMR_XML_Reader_JavaSaxImpl with NorthMR_XML_Info
       val stax = new NorthMR_XML_Reader_JavaStAXImpl with NorthMR_XML_Info
-      val stax_empty = new NorthMR_XML_Reader_JavaStAXImpl_empty with NorthMR_XML_Info {}
+      sax.parseAndSave(Vector(inputFile), outSax)
+      stax.parseAndSave(Vector(inputFile), outStAX)
+      val filesax = scala.io.Source.fromFile(outSax).getLines().toList
+      val filestax = scala.io.Source.fromFile(outStAX).getLines().toList
+      filesax shouldBe filestax
+    }
+  }
+
+  describe("sax stax 性能对比测试") {
+    pending
+    it("gz - HW MRO : sax vs stax") {
+      val stax = new NorthMR_XML_Reader_JavaStAXImpl with NorthMR_XML_Info {
+        override def outputObjectInfo(fileWriter: OutputStreamWriter, line: String): Unit = {}
+      }
+      val stax_empty = new NorthMR_XML_Reader_JavaStAXImpl_empty with NorthMR_XML_Info {
+        override def outputObjectInfo(fileWriter: OutputStreamWriter, line: String): Unit = {}
+      }
       val sax = new NorthMR_XML_Reader_JavaSaxImpl {}
       val sax_empty = new NorthMR_XML_Reader_JavaSaxImpl_empty {}
-      val filename = Vector("src/test/resources/gz/FDD_LTE_MRO_HUAWEI_639168_20160817014500.xml.gz")
+      val filename = Vector("src/test/resources/gz/FDD-LTE_MRO_HUAWEI_86493_20170902043000.xml.gz")
 
       val runtimes = 100
       time(runtimes, "sax 空跑")(sax_empty.parseAndSave(filename, "out/stax_hw.csv"))
@@ -38,22 +54,29 @@ class TarGzProcessTest extends UnitSpec with Using with TestUtils{
     }
   }
 
-  def shougztgz(fileName: String): Unit = {
-    val inputStream = new GzipCompressorInputStream(new FileInputStream(fileName))
-    val tarInput = new ArchiveStreamFactory().createArchiveInputStream(ArchiveStreamFactory.TAR, inputStream)
-    //    val tarInput: TarArchiveInputStream = new TarArchiveInputStream(inputStream)
+  describe("gz targz 大压缩包功能测试") {
+    it("test tgz gz file") {
+      processFilanTgzgz("src/test/resources/tgz/all.tgz")
+//      processFilanTgzgz("src/test/resources/tgz/HW_HN_OMC1-mr-134.175.57.16-20170921043000-20170921044500-20170921051502-001.tar.gz")
+    }
+  }
+  def processFilanTgzgz(fileName: String): Unit = {
+    val fin = new FileInputStream(fileName)
+    val inputStream = new GzipCompressorInputStream(fin)
+    //    val tarInput = new ArchiveStreamFactory().createArchiveInputStream(ArchiveStreamFactory.TAR, inputStream)
+    val tarInput: TarArchiveInputStream = new TarArchiveInputStream(inputStream)
     processTar(tarInput)
   }
 
-  def processTar(tarInput: ArchiveInputStream): Unit = {
-    var entry = tarInput.getNextEntry
-    while (tarInput.available() > 0) {
-      processOneGzInTar(tarInput, entry)
-      entry = tarInput.getNextEntry
+  def processTar(tarInput: TarArchiveInputStream): Unit = {
+    var entry = tarInput.getNextTarEntry
+    while (tarInput.canReadEntryData(entry)) {
+      processOneGz(tarInput, entry)
+      entry = tarInput.getNextTarEntry
     }
   }
 
-  def processOneGzInTar(tarInput: ArchiveInputStream, entry: ArchiveEntry): Unit = {
+  def processOneGz(tarInput: ArchiveInputStream, entry: ArchiveEntry): Unit = if (!entry.isDirectory) {
     val size = entry.getSize.toInt
     val context = new Array[Byte](size)
     var offset = 0
@@ -66,6 +89,7 @@ class TarGzProcessTest extends UnitSpec with Using with TestUtils{
     val xml = new GZIPInputStream(is)
     show(xml)
     println(s"-- ${entry.getName}")
+
   }
 
   def showgz(fileName: String): Unit = {

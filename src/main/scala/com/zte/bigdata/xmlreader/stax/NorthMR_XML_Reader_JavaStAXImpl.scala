@@ -4,8 +4,7 @@ import java.io.{FileOutputStream, OutputStreamWriter}
 
 import com.zte.bigdata.xmlreader.JavaXmlStAXBoot
 import com.zte.bigdata.xmlreader.common.{NorthMR_XML_Info, NorthMR_XML_Info_ZTE, NorthMR_XML_Reader, Using}
-import com.zte.bigdata.xmlreader.stax.common.{StAXProcessInThread, StAXProcessInThread_Empty}
-
+import com.zte.bigdata.xmlreader.stax.common.StAXProcessInThread
 
 trait NorthMR_XML_Reader_JavaStAXImpl extends NorthMR_XML_Reader with Using {
   override protected def parseAndSave_gz(xmlgzFileNames: Vector[String], outFileName: String): Unit = {
@@ -21,9 +20,9 @@ trait NorthMR_XML_Reader_JavaStAXImpl extends NorthMR_XML_Reader with Using {
             }
             fixedThreadPool.execute(processor)
         }
+        fixedThreadPool.shutdown()
+        fixedThreadPool.awaitTermination(10, TimeUnit.MINUTES)
     }
-    fixedThreadPool.shutdown()
-    fixedThreadPool.awaitTermination(10, TimeUnit.MINUTES)
   }
 
   protected def getStAXProcess(zte: Boolean, xmlgzFileName: String, fileWriter: OutputStreamWriter): StAXProcessInThread with NorthMR_XML_Info = {
@@ -32,10 +31,3 @@ trait NorthMR_XML_Reader_JavaStAXImpl extends NorthMR_XML_Reader with Using {
   }
 }
 
-trait NorthMR_XML_Reader_JavaStAXImpl_empty extends NorthMR_XML_Reader_JavaStAXImpl {
-  override protected def getStAXProcess(zte: Boolean, xmlgzFileName: String, fileWriter: OutputStreamWriter): StAXProcessInThread with NorthMR_XML_Info = {
-    if (zte) new StAXProcessInThread_Empty(xmlgzFileName, fileWriter) with NorthMR_XML_Info_ZTE
-    else new StAXProcessInThread_Empty(xmlgzFileName, fileWriter) with NorthMR_XML_Info
-  }
-
-}

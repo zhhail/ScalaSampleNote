@@ -4,16 +4,8 @@ import java.io.{FileOutputStream, OutputStreamWriter}
 
 import com.zte.bigdata.xmlreader.JavaXmlSaxBoot
 import com.zte.bigdata.xmlreader.common.{NorthMR_XML_Reader, Using}
-import com.zte.bigdata.xmlreader.sax.common.{SaxProcessInThread, SaxProcessInThread_Empty}
+import com.zte.bigdata.xmlreader.sax.common.SaxProcessInThread
 
-
-trait NorthMR_XML_Reader_JavaSaxImpl_empty extends NorthMR_XML_Reader_JavaSaxImpl {
-  //  override protected def parseAndSave_gz(xmlFileNames: Vector[String], outFileName: String): Unit =
-  //    parseAndSave_gz_template(xmlFileNames, outFileName)
-  override protected def getProcessor(xmlFileName: String, fileWriter: OutputStreamWriter) =
-  new SaxProcessInThread_Empty(xmlFileName, fileWriter)
-
-}
 
 trait NorthMR_XML_Reader_JavaSaxImpl extends NorthMR_XML_Reader with Using {
 
@@ -25,9 +17,9 @@ trait NorthMR_XML_Reader_JavaSaxImpl extends NorthMR_XML_Reader with Using {
         xmlFileNames.foreach {
           xmlFileName => fixedThreadPool.execute(getProcessor(xmlFileName, fileWriter))
         }
+        fixedThreadPool.shutdown()
+        fixedThreadPool.awaitTermination(60, TimeUnit.MINUTES)
     }
-    fixedThreadPool.shutdown()
-    fixedThreadPool.awaitTermination(60, TimeUnit.MINUTES)
   }
 
   protected def getProcessor(xmlFileName: String, fileWriter: OutputStreamWriter) =

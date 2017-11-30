@@ -27,14 +27,16 @@ class StAXProcessInThread(xmlgzFileName: String, fileWriter: OutputStreamWriter)
   def parser(eventReader: XMLEventReader, fileWriter: OutputStreamWriter) {
     var eNBId = ""
     var head = ""
+    var meet_mro = false
+    var mrodone = false
     var objContext = Vector[String]()
     val sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     var indexs: Map[String, Int] = Map()
-    var valid: Boolean = indexs.get("MR.LteNcEarfcn").isDefined
+    var valid: Boolean = indexs.get("MR.LteNcEarfcn".toLowerCase).isDefined
     var filterColumsIndex = Vector[Int]()
 
     // Read the XML document
-    while (eventReader.hasNext) {
+    while (eventReader.hasNext && !mrodone) {
       val event = eventReader.nextEvent()
       if (event.isStartElement) {
         val startElement = event.asStartElement()
@@ -42,7 +44,7 @@ class StAXProcessInThread(xmlgzFileName: String, fileWriter: OutputStreamWriter)
           case "v" if valid =>
             addcontext(eventReader.nextEvent().asCharacters().getData)
           case "object" if valid =>
-            val h = headInfoFromObject.map(x => startElement.getAttributeByName(new QName(x)).getValue)
+            val h = headInfoFromObject.map(x => startElement.getAttributeByName(new QName(x)).getValue).map(x => if (x == "NIL") "" else x)
             val time = (sDateFormat.parse(h.head.take(10) + " " + h.head.drop(11)).getTime - JavaXmlStAXBoot.dStart) / 1000
             val ms = h.head.takeRight(3).dropWhile(_ == '0')
             head = (Vector(time, ms) ++ h.tail).mkString(",")
@@ -50,19 +52,22 @@ class StAXProcessInThread(xmlgzFileName: String, fileWriter: OutputStreamWriter)
             eNBId = startElement.getAttributeByName(new javax.xml.namespace.QName(eNBIdInXml)).getValue
           case "smr" =>
             val body = eventReader.nextEvent().asCharacters().getData
-            indexs = body.split(" ").zipWithIndex.toMap
-            valid = indexs.isDefinedAt("MR.LteNcEarfcn")
+            indexs = body.toLowerCase.split(" ").zipWithIndex.toMap
+            valid = indexs.isDefinedAt("MR.LteNcEarfcn".toLowerCase)
+            meet_mro = valid
             filterColumsIndex = filterColums.map(x => indexs.getOrElse(x, 65535))
           case _ =>
         }
       }
       // If we reach the end of an item element we add it to the list
       else if (event.isEndElement) {
-        if (event.asEndElement.getName.getLocalPart.equals("object")) {
-          if (valid) {
+        event.asEndElement.getName.getLocalPart match {
+          case "object" if valid =>
             outputObjectInfo(fileWriter, s"$eNBId,$head,${objContext.mkString(",")},\n")
             objContext = Vector()
-          }
+          case "measurement" if meet_mro =>
+            mrodone = true
+          case _ =>
         }
       }
     }
@@ -81,20 +86,8 @@ class StAXProcessInThread(xmlgzFileName: String, fileWriter: OutputStreamWriter)
 
     def xadd(s: Vector[String], t: Vector[String]): Vector[String] = {
       s.zip(t).zip(filterColums).map {
-        case (v, k) => if (k.contains("LteNc")) v._1 + "$" + v._2 else v._1
+        case (v, k) => if (k.contains("ltenc")) v._1 + "$" + v._2 else v._1
       }
     }
   }
-}
-
-class StAXProcessInThread_Empty(xmlgzFileName: String, fileWriter: OutputStreamWriter) extends StAXProcessInThread(xmlgzFileName, fileWriter) {
-  this: NorthMR_XML_Info =>
-  override def parser(eventReader: XMLEventReader, fileWriter: OutputStreamWriter) {
-    // Read the XML document
-    while (eventReader.hasNext) {
-      //      eventReader.nextEvent()
-      eventReader.next()
-    }
-  }
-
 }

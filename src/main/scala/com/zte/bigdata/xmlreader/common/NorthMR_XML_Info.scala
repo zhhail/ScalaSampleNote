@@ -75,7 +75,7 @@ trait NorthMR_XML_Info {
   //  MMEGroupID
   //  MRLon
   //  MRLat
-  val filterColums = Vector("MR.LTESCEARFCN",
+  val filterColums: Vector[String] = Vector("MR.LTESCEARFCN",
     "MR.LTESCPCI",
     "MR.LTESCRSRP",
     "MR.LTESCRSRQ",
@@ -104,18 +104,17 @@ trait NorthMR_XML_Info {
     "MR.LTECDMAORHRPDNCPILOTSTRENGTH",
     "MR.CDMANCPCI",
     "MR.LONGITUDE",
-    "MR.LATITUDE")
-  var headInfoIndex: Vector[Int] = Vector()
+    "MR.LATITUDE").map(_.toLowerCase)
 
   val headInfoFromObject = Vector(
     "TimeStamp",
     "MmeUeS1apId",
     "MmeGroupId",
-    "MmeCode")
+    "MmeCode",
+    "id")
 
   def outputObjectInfo(fileWriter: OutputStreamWriter, line: String): Unit = {
-    //        fileWriter.write(line)
-    //    JavaXmlSaxBoot.count += 1
+    fileWriter.write(line)
   }
   val eNBIdInXml = "id"
 }
@@ -126,7 +125,6 @@ trait NorthMR_XML_Reader {
     val gzs = xmlgzFileNames.filter(_.endsWith(".gz"))
     parseAndSave_gz(gzs, outFileName)
   }
-
   protected def parseAndSave_gz(xmlgzFileNames: Vector[String], outFileName: String): Unit
 
 }
@@ -137,5 +135,6 @@ trait NorthMR_XML_Info_ZTE extends NorthMR_XML_Info {
     "MR.TimeStamp",
     "MR.MmeUeS1apId",
     "MR.MmeGroupId",
-    "MR.MmeCode")
+    "MR.MmeCode",
+    "MR.objectId")
 }
