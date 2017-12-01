@@ -1,14 +1,15 @@
 package com.zte.bigdata.xmlreader.javareader
 
-import java.io.{FileInputStream, OutputStreamWriter}
+import java.io.{FileInputStream, InputStream, OutputStreamWriter}
 import java.util.zip.GZIPInputStream
+import javax.xml.stream.XMLInputFactory
 
-import com.zte.bigdata.common.{TestUtils, UnitSpec, Using}
-import com.zte.bigdata.xmlreader.common.NorthMR_XML_Info
+import com.zte.bigdata.common.{TestUtils, ThreadValueFactory, UnitSpec, Using}
+import com.zte.bigdata.xmlreader.common.{NorthMR_XML_Info, NorthMR_XML_Reader}
 import com.zte.bigdata.xmlreader.sax.{NorthMR_XML_Reader_JavaSaxImpl, NorthMR_XML_Reader_JavaSaxImpl_empty}
+import com.zte.bigdata.xmlreader.stax.common.StAXProcessInThread
 import com.zte.bigdata.xmlreader.stax.{NorthMR_XML_Reader_JavaStAXImpl, NorthMR_XML_Reader_JavaStAXImpl_empty}
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
-import org.apache.commons.compress.archivers.{ArchiveEntry, ArchiveInputStream}
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream
 
 class TarGzProcessTest extends UnitSpec with Using with TestUtils{
@@ -56,40 +57,65 @@ class TarGzProcessTest extends UnitSpec with Using with TestUtils{
 
   describe("gz targz 大压缩包功能测试") {
     it("test tgz gz file") {
-      processFilanTgzgz("src/test/resources/tgz/all.tgz")
-//      processFilanTgzgz("src/test/resources/tgz/HW_HN_OMC1-mr-134.175.57.16-20170921043000-20170921044500-20170921051502-001.tar.gz")
+      pending
+      val file_test = "src/test/resources/tgz/all.tgz"
+      val file_real = "src/test/resources/tgz/HW_HN_OMC1-mr-134.175.57.16-20170921043000-20170921044500-20170921051502-001.tar.gz"
+      processFilanTgzgz(file_test)
+      processFilanTgzgz(file_real)
     }
   }
+  describe("gz targz 大压缩包测试") {
+    val times = 1
+    it("test sax tgz gz file") {
+      val file_test = "src/test/resources/tgz/all.tgz"
+      val file_real = "src/test/resources/tgz/HW_HN_OMC1-mr-134.175.57.16-20170921043000-20170921044500-20170921051502-001.tar.gz"
+      val tmp = new NorthMR_XML_Reader {
+        override protected def parseAndSave_gz(xmlgzFileNames: Vector[String], outFileName: String): Unit = ???
+      }
+      time("all tgz -- test file",times)(tmp.parseAndSave(file_test, "out/all-tgz-sax-test.csv"))
+      time("all tgz -- real file",times)(tmp.parseAndSave(file_real, "out/all-tgz-sax-real.csv"))
+    }
+    it("test stax tgz gz file") {
+      val file_test = "src/test/resources/tgz/all.tgz"
+      val file_real = "src/test/resources/tgz/HW_HN_OMC1-mr-134.175.57.16-20170921043000-20170921044500-20170921051502-001.tar.gz"
+      val tmp = new StAXProcessInThread("", null) with NorthMR_XML_Reader with NorthMR_XML_Info {
+        override protected def parseAndSave_gz(xmlgzFileNames: Vector[String], outFileName: String): Unit = ???
+
+        override def parseAndSave(input: InputStream, fileWriter: OutputStreamWriter): Unit = {
+          val inputFactory: XMLInputFactory = ThreadValueFactory.inputFactory
+          using(inputFactory.createXMLEventReader(input))(parser(_, fileWriter))
+        }
+      }
+      time("all tgz -- test file",times)(tmp.parseAndSave(file_test, "out/all-tgz-stax-test.csv"))
+      time("all tgz -- real file",times)(tmp.parseAndSave(file_real, "out/all-tgz-stax-real.csv"))
+    }
+  }
+
   def processFilanTgzgz(fileName: String): Unit = {
+    // 功能研究，暂未考虑文件句柄释放问题
     val fin = new FileInputStream(fileName)
     val inputStream = new GzipCompressorInputStream(fin)
     //    val tarInput = new ArchiveStreamFactory().createArchiveInputStream(ArchiveStreamFactory.TAR, inputStream)
     val tarInput: TarArchiveInputStream = new TarArchiveInputStream(inputStream)
-    processTar(tarInput)
+    while (tarInput.canReadEntryData(tarInput.getNextEntry)) processOneGz(tarInput)
   }
 
-  def processTar(tarInput: TarArchiveInputStream): Unit = {
-    var entry = tarInput.getNextTarEntry
-    while (tarInput.canReadEntryData(entry)) {
-      processOneGz(tarInput, entry)
-      entry = tarInput.getNextTarEntry
+  def processOneGz(tarInput: TarArchiveInputStream): Unit = {
+    val entry = tarInput.getCurrentEntry
+    if (entry.isFile && entry.getName.contains("MRO")) {
+      val size = entry.getSize.toInt
+      val context = new Array[Byte](size)
+      var offset = 0
+      while (tarInput.available() > 0) {
+        offset += tarInput.read(context, offset, 40960)
+      }
+      val is = new java.io.ByteArrayInputStream(context)
+      //    val xml = new GzipCompressorInputStream(is,true)
+      //    val xml = new ArchiveStreamFactory().createArchiveInputStream("tar",is)
+      val xml = new GZIPInputStream(is)
+      show(xml)
+      println(s"-- ${entry.getName}")
     }
-  }
-
-  def processOneGz(tarInput: ArchiveInputStream, entry: ArchiveEntry): Unit = if (!entry.isDirectory) {
-    val size = entry.getSize.toInt
-    val context = new Array[Byte](size)
-    var offset = 0
-    while (tarInput.available() > 0) {
-      offset += tarInput.read(context, offset, 40960)
-    }
-    val is = new java.io.ByteArrayInputStream(context)
-    //    val xml = new GzipCompressorInputStream(is,true)
-    //    val xml = new ArchiveStreamFactory().createArchiveInputStream("tar",is)
-    val xml = new GZIPInputStream(is)
-    show(xml)
-    println(s"-- ${entry.getName}")
-
   }
 
   def showgz(fileName: String): Unit = {

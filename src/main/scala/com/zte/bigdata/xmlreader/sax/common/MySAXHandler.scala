@@ -14,10 +14,11 @@ class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
   private var ename = ""
   private var eNBId = ""
   private var head = ""
+  private var partline = ""
   private var objContext = Vector[String]()
   private var smr = Vector[String]()
   private var indexs: Map[String, Int] = smr.zipWithIndex.toMap
-  private var valid: Boolean = indexs.get("MR.LteNcEarfcn".toLowerCase).isDefined
+  private var valid: Boolean = false
   private var filterColumsIndex = Vector[Int]()
 
   override def startElement(uri: String,
@@ -42,6 +43,9 @@ class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
                           qName: String): Unit = {
     ename = ""
     qName match {
+      //      case "v" =>
+      //        addcontext(partline)
+      //        partline=""
       case "measurement" =>
         smr = Vector()
       case "object" if valid =>
@@ -54,6 +58,8 @@ class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
   override def characters(ch: Array[Char], start: Int, length: Int): Unit = {
     ename match {
       case "v" if valid =>
+        //        partline += new String(ch, start, length)
+        //        底层有bug， 下面方式框架有时候会把一个标签的内容分两次分两次调用characters
         addcontext(new String(ch, start, length))
       case "smr" =>
         val context = new String(ch, start, length)
@@ -66,8 +72,10 @@ class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
   }
 
   private def addcontext(context: String): Unit = {
-    val tmp = context.split(" ", -1).toVector
-    val filterContext = filterColumsIndex.map {
+    val tmp = context.split(" ").toVector
+    if (tmp.length == smr.length) {
+
+      val filterContext = filterColumsIndex.map {
       case 65535 => ""
       case i =>
         val t = tmp(i)
@@ -75,7 +83,9 @@ class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
     }
     if (objContext.isEmpty) objContext = filterContext
     else objContext = xadd(objContext, filterContext)
+    }
   }
+
 
   private def xadd(s: Vector[String], t: Vector[String]): Vector[String] = {
     s.zip(t).zip(filterColums).map {

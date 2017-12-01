@@ -1,80 +1,16 @@
 package com.zte.bigdata.xmlreader.common
 
-import java.io.OutputStreamWriter
+import java.io.{FileInputStream, FileOutputStream, InputStream, OutputStreamWriter}
+import java.util.concurrent.Executors
+import java.util.zip.GZIPInputStream
+
+import com.zte.bigdata.common.ThreadValueFactory
+import com.zte.bigdata.xmlreader.sax.common.MySAXHandler
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream
 
 trait NorthMR_XML_Info {
-  //  DateTime
-  //  MilliSec
-  //  Network
-  //  eNodeBID
-  //  CID
-  //  UEGid
-  //  TraceID
-  //  CallRecordUEID
-  //  IMSI
-  //  DataType
-  //  UeUlSinr
-  //  UePhr
-  //  AoA
-  //  UeRxTxDiff
-  //  EnbRxTxDiff
-  //  RecvBsr
-  //  PuschPrbNum
-  //  PdschPrbNum
-  //  UlErabSetupPresent
-  //  UlPdcpPktLossCtn
-  //  UlPdcpPktCtn
-  //  DlErabSetupPresent
-  //  DlPdcpPktLossCtn
-  //  DlPdcpPktCtn
-  //  UlPdcpErabTput
-  //  DlPdcpErabTput
-  //  ErabQCI
-  //  RlcUlFlowRate
-  //  RlcDlFlowRate
-  //  DmacUlFlowRate
-  //  DmacDlFlowRate
-  //  UlPdcpErabTimerLen
-  //  DlPdcpErabTimerLen
-  //  AvgRIP
-  //  PdschMcsCtn
-  //  PuschMcsCtn
-  //  PdschAckCtn
-  //  PdschNackCtn
-  //  PdschDtxCtn
-  //  PuschAckCtn
-  //  PuschNackCtn
-  //  DlRsTxPower
-  //  ThermalNoisePower
-  //  ServerRsrp
-  //  ServerCellEarfcn
-  //  ServerCellPci
-  //  ServerRsrq
-  //  NeighCellNum
-  //  NeighCellEarfcn
-  //  NeighCellENBID
-  //  NeighCellID
-  //  NeighPCI
-  //  NeighCellRSRP
-  //  NeighCellRSRQ
-  //  UELat
-  //  UELon
-  //  IMEI
-  //  PdschTmCtn
-  //  TA
-  //  PdschSingleFlowAveMcs
-  //  PdschDoubleFlow1AveMcs
-  //  PdschDoubleFlow2AveMcs
-  //  PuschAveMcs
-  //  Cqi0
-  //  Cqi1
-  //  SuperCellType
-  //  SuperCellCpid
-  //  MMEC
-  //  MMEApID
-  //  MMEGroupID
-  //  MRLon
-  //  MRLat
+
   val filterColums: Vector[String] = Vector("MR.LTESCEARFCN",
     "MR.LTESCPCI",
     "MR.LTESCRSRP",
@@ -119,12 +55,99 @@ trait NorthMR_XML_Info {
   val eNBIdInXml = "id"
 }
 
-trait NorthMR_XML_Reader {
+
+class NorthMR_XML_Reader_Thread(tarInput: TarArchiveInputStream,fileWriter: OutputStreamWriter) extends Runnable with Using{
+  override def run() = {
+
+    val entry = tarInput.getCurrentEntry
+    if (!entry.isDirectory) {
+      val size = entry.getSize.toInt
+      val context = new Array[Byte](size)
+      var offset = 0
+      while (tarInput.available() > 0) {
+        offset += tarInput.read(context, offset, 40960)
+      }
+      using(new GZIPInputStream(new java.io.ByteArrayInputStream(context.take(offset)))){
+        xml =>
+          //          processxml(xml, fileWriter)
+          //          println(s"-- ${entry.getName}")
+          //          if (entry.getName.contains("MRO")) processxml(xml, fileWriter)
+          //          println(s"$offset -- ${entry.getName}")
+          if (entry.getName.contains("MRO")) parseAndSave(xml, fileWriter)
+      }
+    }
+  }
+
+  def parseAndSave(input: InputStream, fileWriter: OutputStreamWriter):Unit =  {
+    val saxparser = ThreadValueFactory.saxparser
+    val processor = new MySAXHandler(fileWriter) with NorthMR_XML_Info
+    saxparser.parse(input, processor)
+  }
+
+}
+trait NorthMR_XML_Reader extends Using {
+  private var vender = "NSN"
+
+  def parseAndSave(inputTargz: String, outFileName: String, vender: String = "NSN"): Unit = {
+    val fixedThreadPool = Executors.newFixedThreadPool(4)
+
+    using(new OutputStreamWriter(new FileOutputStream(outFileName), "UTF-8")) {
+      fileWriter =>
+      using(new FileInputStream(inputTargz)) {
+        fin =>
+          using(new GzipCompressorInputStream(fin)) {
+            inputStream =>
+              using(new TarArchiveInputStream(inputStream)) {
+                tarInput =>
+//                  while (tarInput.canReadEntryData(tarInput.getNextTarEntry)) fixedThreadPool.execute(new NorthMR_XML_Reader_Thread(tarInput,fileWriter))
+                  while (tarInput.canReadEntryData(tarInput.getNextTarEntry)) processOneTar(tarInput,fileWriter)
+              }
+          }
+      }
+    }
+  }
+
+  private def processOneTar(tarInput: TarArchiveInputStream,fileWriter: OutputStreamWriter): Unit = {
+
+    val entry = tarInput.getCurrentEntry
+    if (!entry.isDirectory) {
+      val size = entry.getSize.toInt
+      val context = new Array[Byte](size)
+      var offset = 0
+      while (tarInput.available() > 0) {
+        offset += tarInput.read(context, offset, 40960)
+      }
+      using(new GZIPInputStream(new java.io.ByteArrayInputStream(context))){
+        xml =>
+          if (entry.getName.contains("MRO")) parseAndSave(xml, fileWriter)
+      }
+    }
+  }
+
+  def parseAndSave(input: InputStream, fileWriter: OutputStreamWriter):Unit =  {
+    val saxparser = ThreadValueFactory.saxparser
+    val processor = new MySAXHandler(fileWriter) with NorthMR_XML_Info
+    saxparser.parse(input, processor)
+  }
+
+
+  private def processxml(input: InputStream, fileWriter: OutputStreamWriter):Unit = {
+    val context = new Array[Byte](40960)
+    var size = 0
+    while (input.available() > 0) {
+      val rl = input.read(context)
+      size += new String(context.take(rl), "utf-8").length
+    }
+    print(f"size: $size%10d --")
+  }
+
+  def withVender(vender: String): Unit = this.vender = vender
+
   def parseAndSave(xmlgzFileNames: Vector[String], outFileName: String): Unit = {
     //    接口中不再支持解析 xml 格式文件，只保留gz后的xml文件处理
-    val gzs = xmlgzFileNames.filter(_.endsWith(".gz"))
-    parseAndSave_gz(gzs, outFileName)
+    parseAndSave_gz(xmlgzFileNames.filter(_.endsWith(".gz")), outFileName)
   }
+
   protected def parseAndSave_gz(xmlgzFileNames: Vector[String], outFileName: String): Unit
 
 }

@@ -2,7 +2,7 @@ package com.zte.bigdata.common
 
 trait TestUtils {
   def repeat[T](times: Int)(code: => T): Unit = {
-    for (i <- 0 to times) code
+    for (i <- 1 to times) code
   }
 
   def time[T](msg: String)(code: => T): T = {
@@ -13,7 +13,8 @@ trait TestUtils {
     res
   }
 
-  def time[T](times:Int, msg:String)(code: => T): Unit = {
+  def time[T](times:Int, msg:String)(code: => T): Unit = time(msg,times)(code)
+  def time[T](msg:String,times:Int)(code: => T): Unit = {
     val t0 = System.nanoTime: Double
     repeat(times)(code)
     val t1 = System.nanoTime: Double
