@@ -1,6 +1,6 @@
 package com.zte.bigdata.xmlreader.sax
 
-import java.io.FileInputStream
+import java.io.{FileInputStream, InputStream, OutputStreamWriter}
 
 import com.zte.bigdata.common.ThreadValueFactory
 import com.zte.bigdata.xmlreader.common.NorthMR_XML_Info
@@ -18,4 +18,5 @@ class NorthMR_XML_Reader_ScalaSaxImpl extends NorthMR_XML_Reader_ScalaImpl {
       gz => using(new GzipCompressorInputStream(gz))(withSAXParser(ThreadValueFactory.saxparser).load)
     }
   }
+  override protected def parseAndSave(input: InputStream, fileWriter: OutputStreamWriter): Unit = ???
 }

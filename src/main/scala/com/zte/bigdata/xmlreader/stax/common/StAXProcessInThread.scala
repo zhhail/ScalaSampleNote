@@ -8,10 +8,10 @@ import javax.xml.stream.{XMLEventReader, XMLInputFactory}
 
 import com.zte.bigdata.common.ThreadValueFactory
 import com.zte.bigdata.xmlreader.JavaXmlStAXBoot
-import com.zte.bigdata.xmlreader.common.{NorthMR_XML_Info, Using}
+import com.zte.bigdata.xmlreader.common.{ResultWriter, NorthMR_XML_Info, Using}
 
 
-class StAXProcessInThread(xmlgzFileName: String, fileWriter: OutputStreamWriter) extends Runnable with Using {
+class StAXProcessInThread(xmlgzFileName: String, fileWriter: OutputStreamWriter) extends Runnable with Using with ResultWriter{
   this: NorthMR_XML_Info =>
 
   override def run(): Unit = using(new FileInputStream(xmlgzFileName)) {
@@ -63,7 +63,7 @@ class StAXProcessInThread(xmlgzFileName: String, fileWriter: OutputStreamWriter)
       else if (event.isEndElement) {
         event.asEndElement.getName.getLocalPart match {
           case "object" if valid =>
-            outputObjectInfo(fileWriter, s"$eNBId,$head,${objContext.mkString(",")},\n")
+            lineWriter(fileWriter, s"$eNBId,$head,${objContext.mkString(",")},\n")
             objContext = Vector()
           case "measurement" if meet_mro =>
             mrodone = true

@@ -2,11 +2,11 @@ package com.zte.bigdata.xmlreader.sax.common
 
 import java.io.OutputStreamWriter
 
-import com.zte.bigdata.xmlreader.common.NorthMR_XML_Info
-import org.xml.sax.Attributes
+import com.zte.bigdata.xmlreader.common.{NorthMR_XML_Info, ResultWriter}
+import org.xml.sax.{Attributes, Locator}
 
 class MySAXHandler_empty(fileWriter: OutputStreamWriter) extends MySAXHandler(fileWriter) {
-  this: NorthMR_XML_Info =>
+  this: NorthMR_XML_Info with ResultWriter =>
 
   override def startElement(uri: String,
                             localName: String,
@@ -18,4 +18,6 @@ class MySAXHandler_empty(fileWriter: OutputStreamWriter) extends MySAXHandler(fi
                           qName: String): Unit = {}
 
   override def characters(ch: Array[Char], start: Int, length: Int): Unit = {}
+
+//  override def setDocumentLocator(locator: Locator):Unit = print(".")
 }

@@ -4,11 +4,11 @@ import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 
 import com.zte.bigdata.xmlreader.JavaXmlSaxBoot
-import com.zte.bigdata.xmlreader.common.NorthMR_XML_Info
+import com.zte.bigdata.xmlreader.common.{NorthMR_XML_Info, ResultWriter}
 import org.xml.sax.Attributes
 import org.xml.sax.helpers.DefaultHandler
 
-class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
+class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler  with ResultWriter{
   this: NorthMR_XML_Info =>
   private val sDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
   private var ename = ""
@@ -49,7 +49,7 @@ class MySAXHandler(fileWriter: OutputStreamWriter) extends DefaultHandler {
       case "measurement" =>
         smr = Vector()
       case "object" if valid =>
-        outputObjectInfo(fileWriter, s"$eNBId,$head,${objContext.mkString(",")},\n")
+        lineWriter(fileWriter, s"$eNBId,$head,${objContext.mkString(",")},\n")
         objContext = Vector()
       case _ =>
     }

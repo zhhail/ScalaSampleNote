@@ -1,6 +1,6 @@
 package com.zte.bigdata.xmlreader.dom
 
-import java.io.{FileInputStream, FileOutputStream, OutputStreamWriter}
+import java.io.{FileInputStream, FileOutputStream, InputStream, OutputStreamWriter}
 import java.util.zip.GZIPInputStream
 import javax.xml.parsers.{DocumentBuilder, DocumentBuilderFactory}
 
@@ -10,6 +10,7 @@ import org.w3c.dom.{Document, Element, NodeList}
 
 trait NorthMR_XML_Reader_JavaDomImpl extends Using with NorthMR_XML_Reader{
   this: NorthMR_XML_Info =>
+  override protected def parseAndSave(input: InputStream, fileWriter: OutputStreamWriter): Unit = ???
   val builderFactory: DocumentBuilderFactory = DocumentBuilderFactory.newInstance()
 
   def writeToFile(data: String, outputFile: String): Unit = {

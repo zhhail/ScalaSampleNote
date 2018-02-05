@@ -1,9 +1,10 @@
 package com.zte.bigdata.common
 
-import com.typesafe.config.{ConfigFactory, Config}
 import java.io.File
 
-trait ConfigSupport extends LogSupport {
+import com.typesafe.config.{Config, ConfigFactory}
+
+trait ConfigSupport {
 
   /**
    * 配置文件，只写文件名即可。
@@ -25,6 +26,7 @@ trait ConfigSupport extends LogSupport {
   private def getAll(files:Seq[String])(f:String=>Config):Config = files.map(f).reduce(_.withFallback(_))
 
   private def loadDefault(files: Seq[String]) = getAll(files)(ConfigFactory.load)
-  private def parseUserDef(files: Seq[String]) = getAll(files)(x=>ConfigFactory.parseFile(new File(x)))
+
+  private def parseUserDef(files: Seq[String]) = getAll(files)(x => ConfigFactory.parseFile(new File(x)))
 
 }

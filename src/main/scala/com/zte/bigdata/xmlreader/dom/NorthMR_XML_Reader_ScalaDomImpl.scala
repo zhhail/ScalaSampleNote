@@ -1,6 +1,6 @@
 package com.zte.bigdata.xmlreader.dom
 
-import java.io.FileInputStream
+import java.io.{FileInputStream, InputStream, OutputStreamWriter}
 
 import com.zte.bigdata.xmlreader.common.NorthMR_XML_Info
 import com.zte.bigdata.xmlreader.scalareader.NorthMR_XML_Reader_ScalaImpl
@@ -15,5 +15,6 @@ trait NorthMR_XML_Reader_ScalaDomImpl extends NorthMR_XML_Reader_ScalaImpl {
       gz => using(new GzipCompressorInputStream(gz))(XML.load)
     }
   }
+  override protected def parseAndSave(input: InputStream, fileWriter: OutputStreamWriter): Unit = ???
 }
 

@@ -1,7 +1,7 @@
 package com.zte.bigdata.common
 
-import org.slf4j.LoggerFactory
+import org.slf4j.{Logger, LoggerFactory}
 
 trait LogSupport {
-  protected val log =  LoggerFactory.getLogger(this.getClass)
+  protected val log: Logger =  LoggerFactory.getLogger(this.getClass)
 }

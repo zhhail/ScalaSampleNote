@@ -16,9 +16,9 @@ class Demo_reset_shiftTest extends UnitSpec {
     it("test reset 1 - reset中自带循环") {
       demo.test1
     }
-    it("test gbase"){
-      val rs = GbaseDatabase.gbase.query("select * from config_ndsInfo")
-      println(rs)
-    }
+//    it("test gbase"){
+//      val rs = GbaseDatabase.gbase.query("select * from config_ndsInfo")
+//      println(rs)
+//    }
   }
 }
