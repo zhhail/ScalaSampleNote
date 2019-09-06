@@ -1,23 +1,30 @@
 package com.zte.bigdata.common
 
-trait TestUtils {
-  def repeat[T](times: Int)(code: => T): Unit = {
-    for (i <- 1 to times) code
-  }
+import org.slf4j.LoggerFactory
 
-  def time[T](msg: String)(code: => T): T = {
+
+trait LogSupport {
+  protected val log = LoggerFactory.getLogger("dbscan")
+  private var t = System.nanoTime: Double
+}
+
+trait TestUtils extends LogSupport{
+  def time[T](msg: String)(code: => T): T = time(msg, 1)(code)
+
+  // 只适合测试运算量较大的函数， 如果 code 很简单，叫名参数的开销将会成为主要开销
+  def time[T](msg: String, times: Long)(code: => T): T = {
     val t0 = System.nanoTime: Double
-    val res = code
+    var res = code
+    var i = 1
+    while (i < times) {
+      i += 1
+      res = code
+    }
     val t1 = System.nanoTime: Double
-    println(f"time cost: ${(t1 - t0) / 1000000.0}%10.4f ms - $msg ")
+    log.error(f"cost: ${(t1 - t0) / 1000000000.0}%12.3f s - run ($msg) $times times ")
     res
   }
 
-  def time[T](times:Int, msg:String)(code: => T): Unit = time(msg,times)(code)
-  def time[T](msg:String,times:Int)(code: => T): Unit = {
-    val t0 = System.nanoTime: Double
-    repeat(times)(code)
-    val t1 = System.nanoTime: Double
-    println(f"time cost: ${(t1 - t0) / 1000000.0}%10.4f ms - $times times $msg ")
-  }
+  def time[T](times: Long, msg: String)(code: => T): T = time(msg, times)(code)
+
 }

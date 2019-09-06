@@ -38,6 +38,12 @@ libraryDependencies += "org.json4s" %% "json4s-native" % "3.5.2"
 
 libraryDependencies += "org.apache.commons" % "commons-compress" % "1.15"
 
+libraryDependencies += "org.apache.spark" %% "spark-core" % "2.2.0"
+
+libraryDependencies += "org.apache.spark" %% "spark-sql" % "2.2.0"
+
+libraryDependencies += "org.apache.hive" % "hive-exec" % "2.2.0"
+
 scalacOptions += "-P:continuations:enable"
 
 
