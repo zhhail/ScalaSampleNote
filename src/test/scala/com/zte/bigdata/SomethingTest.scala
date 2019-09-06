@@ -2,17 +2,34 @@ package com.zte.bigdata
 
 import java.text.SimpleDateFormat
 
-import com.zte.bigdata.common.{TestUtils, UnitSpec, strSplit}
+import com.zte.bigdata.common.{JSONUtil, TestUtils, UnitSpec, strSplit}
 
-class SomethingTest extends UnitSpec with TestUtils {
-  describe("String Util split"){
-    it("test split"){
+class SomethingTest extends UnitSpec with TestUtils with JSONUtil{
+  describe("String Util split") {
+    it("test split") {
       strSplit("ab,cd,ef") shouldBe List("ab", "cd", "ef")
       strSplit("ab,,ef") shouldBe List("ab", "", "ef")
       strSplit("ab,,ef,,") shouldBe List("ab", "", "ef", "", "")
       strSplit( """ab,"cd,ef",""") shouldBe List("ab", "\"cd,ef\"", "")
-      strSplit( """ab,"cd,ef",gg,,hh""") should be(List("ab","\"cd,ef\"","gg","","hh"))
+      strSplit( """ab,"cd,ef",gg,,hh""") should be(List("ab", "\"cd,ef\"", "gg", "", "hh"))
 
+    }
+  }
+  describe("xxx"){
+    it("from json to Map[String,Any]") {
+      val json = """{"operateType":"decrypt","password":"ajIV2cPwlJLWoA0q9Lel5g=="}"""
+      val r = fromJSONOption[Map[String, Any]](json).get.map(x=>(x._1,x._2.toString))
+      println(r)
+    }
+    it("from json to Map[String,Any] 2") {
+      val json = "ZXvmax_2017"
+      val r = fromJSONOption[Map[String, Any]](json).getOrElse(Map()).map(x=>(x._1,x._2.toString))
+      println(r)
+    }
+    it("from json to String") {
+      val json = "ZXvmax_2017"
+      val r = fromJSONOption[Any](json).getOrElse("").toString
+      println(r)
     }
   }
 
